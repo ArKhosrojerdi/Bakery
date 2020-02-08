@@ -1,0 +1,19 @@
+<bakery>
+
+  <customer>
+    <code>5050505050</code>
+    <active>1</active>
+    <name></name>
+    <remaining>200</remaining>
+    <breadsBuyed>0</breadsBuyed>
+  </customer>
+
+  <customer>
+      <code>5050505051</code>
+      <active>1</active>
+      <name></name>
+      <remaining>200</remaining>
+      <breadsBuyed>0</breadsBuyed>
+  </customer>
+
+</bakery>
