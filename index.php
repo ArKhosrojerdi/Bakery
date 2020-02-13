@@ -105,7 +105,7 @@ if (isset($_POST['buy-bread'])) {
             <input disabled class="form-control" id="remaining" name="remaining"/>
           </div>
           <div>
-            <svg id="barcode" class="form-row"></svg>
+            <img id="barcode" class="form-row"></img>
           </div>
           <div class="form-group">
             <input class="btn btn-success form-control" type="submit" name="buy-bread" value="ثبت">
@@ -125,8 +125,6 @@ if (isset($_POST['buy-bread'])) {
         if (val !== "") {
             JsBarcode("#barcode", val, {
                 format: "code39",
-                displayValue: true,
-                height: 70,
                 fontSize: 16,
                 font: "Arial-black"
             });
@@ -142,7 +140,7 @@ if (isset($_POST['buy-bread'])) {
             var key = theEvent.keyCode || theEvent.which;
             key = String.fromCharCode(key);
         }
-        var regex = /[0-9,۰-۹]|\./;
+        var regex = /[0-9۰-۹]/;
         if (!regex.test(key)) {
             theEvent.returnValue = false;
             if (theEvent.preventDefault) theEvent.preventDefault();

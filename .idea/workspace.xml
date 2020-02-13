@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b35bc130-4c7e-4a7c-b7ad-e7f986eadeab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/don.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/donate.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/initDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persianTypeEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/persianTypeEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stylesheets/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +79,9 @@
       <workItem from="1580998747474" duration="12449000" />
       <workItem from="1581093128807" duration="397000" />
       <workItem from="1581157593779" duration="1738000" />
-      <workItem from="1581187558753" duration="1569000" />
+      <workItem from="1581187558753" duration="2929000" />
+      <workItem from="1581507303037" duration="13132000" />
+      <workItem from="1581579912956" duration="12315000" />
     </task>
     <servers />
   </component>
@@ -79,6 +89,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="440" y="190" key="#CSS" timestamp="1581597667570">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="190" key="#CSS/0.0.1680.1050@0.0.1680.1050" timestamp="1581597667570" />
     <state x="440" y="190" key="#HTML" timestamp="1580831759533">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -95,17 +109,18 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1580897267341" />
-    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1580999241708">
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581555214664">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1580999241708" />
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581555214664" />
     <state x="341" y="164" key="SettingsEditor" timestamp="1580853748859">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1580853748859" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1581006237660">
-      <screen x="0" y="23" width="1680" height="970" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1581535972058">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581535972058" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.23.1680.970@0.23.1680.970" timestamp="1581006237660" />
   </component>
 </project>

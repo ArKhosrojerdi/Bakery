@@ -20,13 +20,13 @@ if (isset($_POST['update-price'])) {
     }
 }
 
-if (isset($_POST['dominatebtn'])) {
-    $domination_price = $_POST['domination'];
+if (isset($_POST['donatebtn'])) {
+    $domination_price = $_POST['donation'];
     $domination_price = convertNumbers($domination_price, false);
     if ($domination_price !== "") {
         $query = "INSERT INTO domination (value) VALUE ('{$domination_price}')";
-        $dominate = mysqli_query($connection, $query);
-        if (!$dominate) {
+        $donate = mysqli_query($connection, $query);
+        if (!$donate) {
             die(mysqli_error($connection));
         } else {
             $query = "SELECT count(id) as cid FROM customer WHERE active = '1'";
@@ -42,7 +42,7 @@ if (isset($_POST['dominatebtn'])) {
                         die(mysqli_error($connection));
                     } else {
                         if ($row = mysqli_fetch_assoc($select_price)) {
-                            $breads_dominate = $domination_price / ($c_act * $row['price']);
+                            $breads_donate = $domination_price / ($c_act * $row['price']);
                             $query = "SELECT * FROM customer WHERE active = '1'";
                             $select_customers = mysqli_query($connection, $query);
                             if (!$select_customers) {
@@ -51,7 +51,7 @@ if (isset($_POST['dominatebtn'])) {
                                 while ($row1 = mysqli_fetch_assoc($select_customers)) {
                                     $cus_id = $row1['id'];
                                     $cus_rem = $row1['remaining'];
-                                    $cus_rem = $cus_rem + $breads_dominate;
+                                    $cus_rem = $cus_rem + $breads_donate;
                                     $query = "SELECT remaining FROM customer WHERE id = '{$cus_id}'";
                                     $find_cus = mysqli_query($connection, $query);
                                     if (!$find_cus) {
@@ -59,7 +59,7 @@ if (isset($_POST['dominatebtn'])) {
                                     } else {
                                         if ($row_cus = mysqli_fetch_assoc($find_cus)) {
                                             $cus_rem = $row_cus['remaining'];
-                                            $new_rem = $cus_rem + $breads_dominate;
+                                            $new_rem = $cus_rem + $breads_donate;
                                             $query = "UPDATE customer SET remaining = {$new_rem} WHERE id = '{$cus_id}'";
                                             $upd_rem = mysqli_query($connection, $query);
                                             if (!$upd_rem) {
@@ -83,7 +83,6 @@ if (isset($_POST['dominatebtn'])) {
     }
 
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,11 +138,11 @@ if (isset($_POST['dominatebtn'])) {
         <hr>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="domination" class="text-right">مقدار کمک مالی به تومان</label>
-            <input name="domination" class="form-control" id="domination" onkeypress="validate(event)">
+            <label for="donation" class="text-right">مقدار کمک مالی به تومان</label>
+            <input name="donation" class="form-control" id="donation" onkeypress="validate(event)">
           </div>
           <div class="form-group">
-            <input class="btn btn-success form-control" type="submit" name="dominatebtn"
+            <input class="btn btn-success form-control" type="submit" name="donatebtn"
                    value="اضافه کردن به حساب">
           </div>
         </form>
@@ -152,50 +151,55 @@ if (isset($_POST['dominatebtn'])) {
   </div>
 </div>
 
-<!--<div class="container">-->
-<!--  <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5 mb-5">-->
-<!--    <div class="card card-body">-->
-<!--      <div class="card-body">-->
-<!--        <h4 class="card-title mb-4 mt-1 text-right">صفحه ویرایش</h4>-->
-<!--        <hr>-->
-<!--        <form action="" method="post" enctype="multipart/form-data">-->
-<!--          <div class="form-group">-->
-<!--            <label for="price" class="text-right">قیمت هر قرص نان</label>-->
-<!--            <input name="price" class="form-control" id="" autofocus onkeypress="validate(event)">-->
-<!--          </div>-->
-<!---->
-<!--        </form>-->
-<!--        <form action="" method="post" enctype="multipart/form-data">-->
-<!--          <div class="form-group">-->
-<!--            <input class="btn btn-success form-control" type="submit" name="update-price"-->
-<!--                   value="بروزرسانی قیمت">-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="container">
+  <div class="col-lg-12 col-md-12 col-sm-12 mx-auto mt-5">
+    <div class="card card-body">
+      <div class="card-body">
+        <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
+        <hr>
+        <form action="donate.php" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="custom_donation" class="text-right">کمک به تومان</label>
+            <input class="form-control" id="custom_donation" name="custom_donation" onkeypress="validate(event)">
+          </div>
+          <table class="table table-bordered">
+            <tr>
+              <th>عائله</th>
+              <th>نام خانوادگی</th>
+              <th>نام</th>
+              <th>کد</th>
+              <th>تعداد باقیمانده</th>
+              <th>تعداد</th>
+              <th style="text-align: right"><input class="form-check-inline" type="checkbox" id="select_all" onclick="toggle()"></th>
+            </tr>
 
-<!--<div class="container">-->
-<!--  <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5 mb-5">-->
-<!--    <div class="card card-body">-->
-<!--      <div class="card-body">-->
-<!--        <h4 class="card-title mb-4 mt-1 text-right">صفحه ویرایش</h4>-->
-<!--        <hr>-->
-<!--        <form action="" method="post" enctype="multipart/form-data">-->
-<!--          <div class="form-group">-->
-<!--            <label for="help" class="text-right">مقدار کمک مالی (تومان)</label>-->
-<!--            <input name="help" class="form-control" id="" onkeypress="validate(event)">-->
-<!--          </div>-->
-<!--          <div class="form-group">-->
-<!--            <input class="btn btn-success form-control" type="submit" name="help-money"-->
-<!--                   value="اضافه کردن به حساب">-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+              <?php
+              $query = "SELECT * FROM customer";
+              $select_menu_items = mysqli_query($connection, $query);
+              while ($row = mysqli_fetch_assoc($select_menu_items)) { ?>
+            <tr>
+              <td><?php echo convertNumbers($row['family'], true); ?></td>
+              <td><?php echo $row['last_name']; ?></td>
+              <td><?php echo $row['first_name']; ?></td>
+              <td><?php echo convertNumbers($row['id'], true); ?>
+              <td><?php echo convertNumbers($row['remaining'], true); ?>
+              <td><input class="form-control" type="text" name="donate_count"
+                         id="donate_count[<?php echo $row['id']; ?>]" value="<?php
+                  echo convertNumbers(0, true);
+                  ?>" onkeypress="validate(event)" onclick="this.select();" disabled>
+              </td>
+              <td><input class="form-check-inline" type="checkbox" name="donate_check"
+                         id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleInput(this.id)"></td>
+                <?php
+                }
+                ?>
+          </table>
+          <input class="form-control btn btn-primary" type="submit" value="ثبت">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -210,11 +214,55 @@ if (isset($_POST['dominatebtn'])) {
             var key = theEvent.keyCode || theEvent.which;
             key = String.fromCharCode(key);
         }
-        var regex = /[0-9,۰-۹]|\./;
+        var regex = /[0-9۰-۹]/;
         if (!regex.test(key)) {
             theEvent.returnValue = false;
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
+    }
+
+    function showPro(val) {
+        var xhttps;
+        var enVal = val.toEnglishDigit();
+        changeBarcode(enVal);
+
+        xhttps = new XMLHttpRequest();
+        xhttps.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("remaining").value = this.responseText;
+                document.getElementById("remaining").innerText = this.responseText;
+                document.getElementById("remaining").style.direction = "ltr";
+                if (this.responseText === "") {
+                    document.getElementById("remaining").value = "کد نامتعبر است";
+                    document.getElementById("remaining").innerText = "کد نامتعبر است";
+                    document.getElementById("remaining").style.direction = "rtl";
+                }
+            }
+        };
+        xhttps.open("GET", "don.php?q=" + val, true);
+        xhttps.send();
+    }
+
+    function toggle() {
+        var inputs = document.getElementsByName("donate_count");
+        var checks = document.getElementsByName("donate_check");
+        var status = document.getElementById('select_all').checked;
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = !status;
+            checks[i].checked = status;
+        }
+    }
+
+    function toggleInput(dc) {
+        var id = dc.substring(13, 23);
+        var donate_count_str = "donate_count[" + id + "]";
+        var status = document.getElementById(donate_count_str).disabled;
+        if (!status) {
+            document.getElementById(donate_count_str).value = '۰';
+        }
+        document.getElementById(donate_count_str).disabled = !status;
+
     }
 </script>
 </body>

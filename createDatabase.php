@@ -11,7 +11,7 @@ if (!$create_db) {
     if (!$useDB) {
         die(mysqli_error($connection));
     } else {
-        $query = "CREATE TABLE customer(id        CHAR(10)    NOT NULL, active INT(1) NOT NULL, remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
+        $query = "CREATE TABLE customer(id        CHAR(10)    NOT NULL, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
         $create_customer = mysqli_query($connection, $query);
         if (!$create_customer) {
             die(mysqli_error($connection));
@@ -26,7 +26,7 @@ if (!$create_db) {
                 if (!$create_bread) {
                     die(mysqli_error($connection));
                 } else {
-                    $query = "CREATE TABLE domination (value INT(50) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+                    $query = "CREATE TABLE domination (value INT(50) NOT NULL, money INT (1) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
                     $create_dom = mysqli_query($connection, $query);
                     if (!$create_dom) {
                         die(mysqli_error($connection));
