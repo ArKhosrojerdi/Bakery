@@ -11,7 +11,7 @@ if (!$create_db) {
     if (!$useDB) {
         die(mysqli_error($connection));
     } else {
-        $query = "CREATE TABLE customer(id        CHAR(10)    NOT NULL, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
+        $query = "CREATE TABLE customer(id        CHAR(10)    NOT NULL, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, vip INT(1) NOT NULL , remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
         $create_customer = mysqli_query($connection, $query);
         if (!$create_customer) {
             die(mysqli_error($connection));

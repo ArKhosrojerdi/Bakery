@@ -22,5 +22,6 @@ function chInp(idName) {
 
 chInp('#price');
 chInp('#donation');
-chInp('#custom_donation');
+chInp('#money_custom_donation');
+chInp('#amount_custom_donation');
 chInp('input[name^="donate_count"]');

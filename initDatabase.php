@@ -4,12 +4,21 @@ $i = 0;
 $code = 5050505050;
 $remaining = 200;
 for (; $i < 150; $i = $i + 1) {
-    $query = "INSERT INTO customer (id, active, family, remaining, total) VALUES ('{$code}', 1, 4, 200, 0)";
-    $code = $code + 1;
-    $initDB = mysqli_query($connection, $query);
-    if (!$initDB) {
-        die(mysqli_error($connection));
-    }
+  if ($i < 50) {
+      $query = "INSERT INTO customer (id, active, family, remaining, total, vip) VALUES ('{$code}', 1, 4, 200, 0, 1)";
+      $code = $code + 1;
+      $initDB = mysqli_query($connection, $query);
+      if (!$initDB) {
+          die(mysqli_error($connection));
+      }
+  } else {
+      $query = "INSERT INTO customer (id, active, family, remaining, total, vip) VALUES ('{$code}', 1, 4, 200, 0, 0)";
+      $code = $code + 1;
+      $initDB = mysqli_query($connection, $query);
+      if (!$initDB) {
+          die(mysqli_error($connection));
+      }
+  }
 }
 $query = "INSERT INTO bread (price) VALUE (500)";
 $initDB = mysqli_query($connection, $query);

@@ -1,6 +1,8 @@
 <?php
 include "db1.php";
 include "entope.php";
+ob_start();
+session_start();
 
 if (isset($_POST['buy-bread'])) {
     $customer_id = $_POST['code'];
@@ -72,7 +74,13 @@ if (isset($_POST['buy-bread'])) {
   <div class="col-lg-6 mx-auto mt-5">
     <div class="card card-border card-body">
       <div class="card-body">
-        <a href="edit.php" class="float-left btn btn-secondary">ویرایش</a>
+          <?php
+          if (isset($_SESSION['username'])) {
+              echo "<a href='edit.php' class='float-left btn btn-secondary'>ویرایش</a>";
+          } else {
+              echo "<a href='login.php' class='float-left btn btn-secondary ml-1'>ورود</a>";
+          }
+          ?>
         <h4 class="card-title mb-4 mt-1 text-right" id="price">
           قیمت نان
             <?php
@@ -98,7 +106,7 @@ if (isset($_POST['buy-bread'])) {
           </div>
           <div class="form-group">
             <label for="amount" class="text-right">تعداد</label>
-            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)">
+            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)" required>
           </div>
           <div class="form-group">
             <label for="remaining" class="text-right">باقیمانده</label>

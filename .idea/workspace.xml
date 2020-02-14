@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b35bc130-4c7e-4a7c-b7ad-e7f986eadeab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/don.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/donate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/session.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/createDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/don.php" beforeDir="false" afterPath="$PROJECT_DIR$/don.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/donate.php" beforeDir="false" afterPath="$PROJECT_DIR$/donate.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/initDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/initDatabase.php" afterDir="false" />
@@ -81,7 +85,7 @@
       <workItem from="1581157593779" duration="1738000" />
       <workItem from="1581187558753" duration="2929000" />
       <workItem from="1581507303037" duration="13132000" />
-      <workItem from="1581579912956" duration="12315000" />
+      <workItem from="1581579912956" duration="38138000" />
     </task>
     <servers />
   </component>
@@ -105,18 +109,26 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="440" y="190" key="#XML/0.0.1680.1050@0.0.1680.1050" timestamp="1580827936260" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581604768480">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581604768480" />
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580897267341">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1580897267341" />
-    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581555214664">
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581683073870">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581555214664" />
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581683073870" />
     <state x="341" y="164" key="SettingsEditor" timestamp="1580853748859">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1580853748859" />
+    <state x="505" y="248" key="run.anything.popup" timestamp="1581606662677">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="248" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581606662677" />
     <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1581535972058">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

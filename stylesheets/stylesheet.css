@@ -24,6 +24,25 @@ td, th {
   text-align: center;
 }
 
+td {
+  vertical-align: middle;
+}
+
+td:last-child, th:last-child {
+  margin: auto;
+  text-align: right;
+}
+
+.navbar {
+  background-color: #721c24;
+  color: #f7f7f7;
+  margin: auto;
+  width: 35% !important;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  box-shadow: #1d2124;
+}
+
 .btn.btn-success {
   font-size: 20px;
   color: #fff;
