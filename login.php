@@ -10,11 +10,9 @@ session_start();
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./stylesheets/stylesheet.css" rel="stylesheet">
-  <!--  <script src="./JsBarcode.all.min.js"></script>-->
 </head>
 
 <body>
-<!--<h2>Enter Username and Password</h2>-->
 <div class="container">
     <?php
     $msg = '';
@@ -34,13 +32,13 @@ session_start();
         }
     }
     ?>
-</div> <!-- /container -->
+</div>
 
 <div class="container">
   <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5">
     <div class="card card-body">
       <div class="card-body">
-        <a href="index.php" class="float-left btn btn-secondary">برگرد</a>
+        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
         <h4 class="card-title mb-4 mt-1 text-right">صفحه ورود</h4>
         <hr>
         <form role="form"

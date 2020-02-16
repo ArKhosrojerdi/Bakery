@@ -15,9 +15,13 @@ if (!$select_price) {
     }
 }
 
-$total_bread = $q / $bread_price;
-$total_bread = floor($total_bread);
-$rem = $q - ($total_bread * $bread_price);
-$str = " (مبلغ اضافه" . convertNumbers($rem, true) . ") ";
-$str .= " " . convertNumbers($total_bread, true) . " ";
-echo $str;
+if (!empty($q) || $q !== "") {
+    $total_bread = $q / $bread_price;
+    $total_bread = floor($total_bread);
+    $rem = $q - ($total_bread * $bread_price);
+    $str = " (مبلغ اضافه" . convertNumbers($rem, true) . ") ";
+    $str .= " " . convertNumbers($total_bread, true) . " ";
+    echo $str;
+} else {
+    echo ') ۰';
+}

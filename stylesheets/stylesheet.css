@@ -15,22 +15,29 @@ html, body {
 }
 
 input::-webkit-input-placeholder {
-  direction: rtl;
+  direction: ltr;
   text-align: left;
 }
 
-td, th {
+input {
   direction: ltr;
-  text-align: center;
+  text-align: left;
 }
 
-td {
-  vertical-align: middle;
+table, td, th {
+  direction: ltr;
+  text-align: center;
+  vertical-align: baseline !important;
 }
 
 td:last-child, th:last-child {
-  margin: auto;
-  text-align: right;
+  margin: 0;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+input[type=checkbox], input[type=radio] {
+  margin: 0 !important;
 }
 
 .navbar {

@@ -1,62 +1,9 @@
 <?php
-include "db1.php";
 include "entope.php";
+include "functions.php";
 ob_start();
 session_start();
-
-if (isset($_POST['buy-bread'])) {
-    $customer_id = $_POST['code'];
-    $amount = $_POST['amount'];
-    $amount = convertNumbers($amount, false);
-    $customer_id = convertNumbers($customer_id, false);
-    if ($customer_id != "" || $amount != "" || $amount !== "0" || $customer_id !== "0") {
-        if (strlen($customer_id) == 10) {
-            $query = "SELECT remaining FROM customer WHERE id = '{$customer_id}'";
-            $q = mysqli_query($connection, $query);
-            $row = mysqli_fetch_assoc($q);
-            if ($row['remaining'] !== "") {
-                if ($row['remaining'] >= $amount) {
-                    $remaining = $row['remaining'] - $amount;
-                    $query = "UPDATE customer SET remaining = {$remaining} WHERE id = '{$customer_id}'";
-                    $buy = mysqli_query($connection, $query);
-                    if (!$buy) {
-                        die(mysqli_error($connection));
-                    } else {
-                        $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
-                        $select_price = mysqli_query($connection, $query);
-                        if (!$select_price) {
-                            die(mysqli_error($connection));
-                        } else {
-                            if ($row = mysqli_fetch_assoc($select_price)) {
-                                $query = "INSERT INTO transaction(cid, amount, price) VALUES ('{$customer_id}', '{$amount}', '{$row['price']}')";
-                                $transaction = mysqli_query($connection, $query);
-                                if (!$transaction) {
-                                    die(mysqli_error($connection));
-                                } else {
-                                    $message = "خرید با موفقیت انجام شد.";
-                                    echo "<script type='text/javascript'>alert('$message');</script>";
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    $message = "تعداد انتخاب شده در محدوده مجاز نمی‌باشد و ";
-                    $message .= "شما حداکثر می‌توانید {$row['remaining']} نان خریداری نمایید.";
-                    echo "<script type='text/javascript'>alert('$message');</script>";
-                }
-            } else {
-                $message = "کد در دیتابیس موجود نیست.";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-            }
-        } else {
-            $message = "تعداد ارقام کد، نامعتبر است. (کد باید ۱۰ رقمی باشد)";
-            echo "<script type='text/javascript'>alert('$message');</script>";
-        }
-    } else {
-        $message = "لطفا همه فیلدها را پر نمایید!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-    }
-}
+buyBread();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +14,7 @@ if (isset($_POST['buy-bread'])) {
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./stylesheets/stylesheet.css" rel="stylesheet">
   <script src="./JsBarcode.all.min.js"></script>
+
 </head>
 
 <body>
@@ -76,25 +24,14 @@ if (isset($_POST['buy-bread'])) {
       <div class="card-body">
           <?php
           if (isset($_SESSION['username'])) {
-              echo "<a href='edit.php' class='float-left btn btn-secondary'>ویرایش</a>";
+              echo "<a href='edit.php' class='float-left btn btn-dark'>ویرایش</a>";
           } else {
-              echo "<a href='login.php' class='float-left btn btn-secondary ml-1'>ورود</a>";
+              echo "<a href='login.php' class='float-left btn btn-outline-success ml-1'>ورود</a>";
           }
           ?>
         <h4 class="card-title mb-4 mt-1 text-right" id="price">
           قیمت نان
-            <?php
-            $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
-            $select_price = mysqli_query($connection, $query);
-            if (!$select_price) {
-                die(mysqli_error($connection));
-            } else {
-                if ($row = mysqli_fetch_assoc($select_price)) {
-                    $row['price'] = convertNumbers($row['price'], true);
-                    echo $row['price'];
-                }
-            }
-            ?>
+            <?php getBreadPrice(); ?>
           تومان
         </h4>
         <hr>
@@ -106,17 +43,17 @@ if (isset($_POST['buy-bread'])) {
           </div>
           <div class="form-group">
             <label for="amount" class="text-right">تعداد</label>
-            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)" required>
+            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)" onpaste="return false;" required>
           </div>
           <div class="form-group">
             <label for="remaining" class="text-right">باقیمانده</label>
             <input disabled class="form-control" id="remaining" name="remaining"/>
           </div>
           <div>
-            <img id="barcode" class="form-row"></img>
+            <img id="barcode" class="form-row">
           </div>
           <div class="form-group">
-            <input class="btn btn-success form-control" type="submit" name="buy-bread" value="ثبت">
+            <input class="btn btn-primary form-control" type="submit" name="buy-bread" value="ثبت">
           </div>
         </form>
       </div>
@@ -127,8 +64,8 @@ if (isset($_POST['buy-bread'])) {
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="persianTypeIndex.js"></script>
-
 <script>
+
     function changeBarcode(val) {
         if (val !== "") {
             JsBarcode("#barcode", val, {
