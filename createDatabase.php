@@ -1,40 +1,35 @@
 <?php
-include "db.php";
+include "migration.php";
 
 $query = "CREATE DATABASE IF NOT EXISTS bakery DEFAULT CHARACTER SET UTF8;";
 $create_db = mysqli_query($connection, $query);
 if (!$create_db) {
     die(mysqli_error($connection));
-} else {
-    $query = "USE bakery;";
-    $useDB = mysqli_query($connection, $query);
-    if (!$useDB) {
-        die(mysqli_error($connection));
-    } else {
-        $query = "CREATE TABLE customer(id        CHAR(10)    NOT NULL, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, vip INT(1) NOT NULL , remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
-        $create_customer = mysqli_query($connection, $query);
-        if (!$create_customer) {
-            die(mysqli_error($connection));
-        } else {
-            $query = "CREATE TABLE bread(price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
-            $create_bread = mysqli_query($connection, $query);
-            if (!$create_bread) {
-                die(mysqli_error($connection));
-            } else {
-                $query = "CREATE TABLE transaction (cid CHAR(10) NOT NULL, amount INT(50), price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
-                $create_bread = mysqli_query($connection, $query);
-                if (!$create_bread) {
-                    die(mysqli_error($connection));
-                } else {
-                    $query = "CREATE TABLE domination (value INT(50) NOT NULL, money INT (1) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
-                    $create_dom = mysqli_query($connection, $query);
-                    if (!$create_dom) {
-                        die(mysqli_error($connection));
-                    }
-                }
-            }
-        }
-    }
+}
+$query = "USE bakery;";
+$useDB = mysqli_query($connection, $query);
+if (!$useDB) {
+    die(mysqli_error($connection));
+}
+$query = "CREATE TABLE IF  NOT EXISTS  customer(id        CHAR(10)    NOT NULL, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, vip INT(1) NOT NULL , remaining INT(50) NOT NULL, total  INT(50)    NOT NULL, PRIMARY KEY (id));";
+$create_customer = mysqli_query($connection, $query);
+if (!$create_customer) {
+    die(mysqli_error($connection));
+}
+$query = "CREATE TABLE IF  NOT EXISTS bread(price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+$create_bread = mysqli_query($connection, $query);
+if (!$create_bread) {
+    die(mysqli_error($connection));
+}
+$query = "CREATE TABLE IF  NOT EXISTS transaction (cid CHAR(10) NOT NULL, amount INT(50), price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+$create_bread = mysqli_query($connection, $query);
+if (!$create_bread) {
+    die(mysqli_error($connection));
+}
+$query = "CREATE TABLE IF  NOT EXISTS domination (value INT(50) NOT NULL, money INT (1) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+$create_dom = mysqli_query($connection, $query);
+if (!$create_dom) {
+    die(mysqli_error($connection));
 }
 ?>
 <!DOCTYPE html>

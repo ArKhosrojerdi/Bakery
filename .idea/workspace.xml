@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b35bc130-4c7e-4a7c-b7ad-e7f986eadeab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/editBreadPrice.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/don.php" beforeDir="false" afterPath="$PROJECT_DIR$/don.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/migration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/don.php" beforeDir="false" afterPath="$PROJECT_DIR$/showNav.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/donate.php" beforeDir="false" afterPath="$PROJECT_DIR$/donate.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home1.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/session.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/initDatabase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stylesheets/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +58,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.PHP" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -82,7 +84,7 @@
       <workItem from="1581157593779" duration="1738000" />
       <workItem from="1581187558753" duration="2929000" />
       <workItem from="1581507303037" duration="13132000" />
-      <workItem from="1581579912956" duration="62670000" />
+      <workItem from="1581579912956" duration="91963000" />
     </task>
     <servers />
   </component>
@@ -102,6 +104,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="440" y="190" key="#Other_File_Types/0.0.1680.1050@0.0.1680.1050" timestamp="1580835065680" />
+    <state x="505" y="110" key="#PHP" timestamp="1581952457457">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="110" key="#PHP/0.0.1680.1050@0.0.1680.1050" timestamp="1581952457457" />
     <state x="440" y="190" key="#XML" timestamp="1580827936260">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -114,22 +120,30 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1580897267341" />
-    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581694025171">
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581895072570">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581694025171" />
-    <state x="341" y="164" key="SettingsEditor" timestamp="1580853748859">
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581895072570" />
+    <state x="341" y="164" key="SettingsEditor" timestamp="1581945052245">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1580853748859" />
+    <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1581945052245" />
+    <state x="495" y="147" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581874636174">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="495" y="147" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1581874636174" />
+    <state x="498" y="160" width="683" height="729" key="find.popup" timestamp="1581944533630">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="498" y="160" width="683" height="729" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581944533630" />
     <state x="505" y="248" key="run.anything.popup" timestamp="1581606662677">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="505" y="248" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581606662677" />
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1581695062708">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1581944501146">
+      <screen x="0" y="23" width="1680" height="970" />
     </state>
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581695062708" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.23.1680.970@0.23.1680.970" timestamp="1581006237660" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581944492522" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.23.1680.970@0.23.1680.970" timestamp="1581944501146" />
   </component>
 </project>

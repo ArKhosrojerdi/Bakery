@@ -43,11 +43,20 @@ input[type=checkbox], input[type=radio] {
 .navbar {
   background-color: #721c24;
   color: #f7f7f7;
-  margin: auto;
+}
+
+#nav-cus {
   width: 35% !important;
+  margin: auto;
   border-radius: 0 0 10px 10px;
   text-align: center;
-  box-shadow: #1d2124;
+}
+
+#nav-ext {
+  width: 15% !important;
+  margin: auto;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
 }
 
 .btn.btn-success {

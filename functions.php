@@ -10,8 +10,8 @@ function getBreadPrice()
         die(mysqli_error($connection));
     } else {
         if ($row = mysqli_fetch_assoc($select_price)) {
-            $row['price'] = convertNumbers($row['price'], true);
-            echo $row['price'];
+//            $row['price'] = convertNumbers($row['price'], true);
+            return $row['price'];
         }
     }
 }

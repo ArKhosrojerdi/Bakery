@@ -4,7 +4,8 @@ include "entope.php";
 
 if (isset($_POST['exec'])) {
     $count = $_POST["donate_count"];
-//    print_r($_POST["donate_count"]);
+    print_r($_POST["donate_count"]);
+    print_r($_POST["active_check"]);
 
     if (empty($count)) {
         echo "<script type='text/javascript'>" .
@@ -27,7 +28,7 @@ if (isset($_POST['exec'])) {
                     $update_remaining_query = mysqli_query($connection, $query);
                     if (!$update_remaining_query)
                         die(mysqli_error($connection));
-                    header("Location: edit.php");
+//                    header("Location: edit.php");
                 }
 //                echo $key . "<br />";
 //                echo convertNumbers($value, false) . "<br />";

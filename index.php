@@ -31,7 +31,7 @@ buyBread();
           ?>
         <h4 class="card-title mb-4 mt-1 text-right" id="price">
           قیمت نان
-            <?php getBreadPrice(); ?>
+            <?php echo convertNumbers(getBreadPrice(), true); ?>
           تومان
         </h4>
         <hr>

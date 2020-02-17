@@ -6,7 +6,6 @@ if (!isset($_SESSION['username'])) {
 }
 include "entope.php";
 include "functions.php";
-updateBreadPrice();
 
 if (isset($_POST['donatebtn'])) {
     $domination_price = $_POST['donation'];
@@ -88,29 +87,11 @@ if (isset($_POST['donatebtn'])) {
   <label class="nav nav-item mx-auto"> نان کمک کنید &nbsp;<span id="t_bread"></span>&nbsp; شما می‌توانید </label>
 </nav>
 
-<div class="container">
-  <div class="col-lg-12 col-md-12 col-sm-12 mx-auto mt-5">
-    <div class="card card-body">
-      <div class="card-body">
-        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
-        <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
-        <h4 class="card-title mb-4 mt-1 text-right">صفحه ویرایش</h4>
-        <hr>
-        <form action="" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="price" class="text-right">قیمت هر قرص نان</label>
-            <input name="price" class="form-control" id="price" onkeypress="validate(event)"
-                   placeholder="قیمت روز <?php getBreadPrice(); ?> تومان">
-          </div>
-          <div class="form-group">
-            <input class="btn btn-success form-control" type="submit" name="update-price"
-                   value="بروزرسانی قیمت">
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<nav id="nav-ext" class="navbar fixed-bottom" hidden>
+  <label class="nav nav-item mx-auto">
+    <span id="extra">&nbsp;</span><span style="direction: rtl; text-align: right">باقیمانده: </span>
+  </label>
+</nav>
 
 <!--<div class="container">-->
 <!--  <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5">-->
@@ -137,6 +118,10 @@ if (isset($_POST['donatebtn'])) {
   <div class="mt-5">
     <div class="card card-body">
       <div class="card-body">
+        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
+        <a href="editBreadPrice.php" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
+        <a href="addMember.php" class="float-left btn btn-outline-dark ml-1">اضافه‌کردن خانوار</a>
+        <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
         <hr>
         <form action="donate.php" method="post" enctype="multipart/form-data">
@@ -172,25 +157,24 @@ if (isset($_POST['donatebtn'])) {
           <div class="row" style="direction: rtl;">
             <div class="radio col-3">
               <label>وارد کردن مبلغ
-                <input type="radio" name="cdon" onchange="showInputField()" checked>
+                <input type="radio" name="cdon" id="mcd" onchange="showInputField()" checked>
               </label>
             </div>
             <div class="radio col-3">
               <label>وارد کردن تعداد
-                <input type="radio" name="cdon" onchange="showInputField()">
+                <input type="radio" name="cdon" id="acd" onchange="showInputField()">
               </label>
             </div>
 
             <div>
               <input class="col-12 form-control" id="money_custom_donation" name="money_custom_donation"
-                     onkeypress="validate(event)"
-                     onclick="this.select();" placeholder="مبلغ را وارد کنید"
-                     style="width: 100%; text-align: left; direction: ltr" onkeyup="fillFields(this.value)"
-                     onpaste="return false;">
+                     onkeypress="validate(event);" onclick="this.select();"
+                     placeholder="مبلغ را وارد کنید" onkeyup="fillFields(this.value);"
+                     style="width: 100%; text-align: left; direction: ltr" onpaste="return false;">
               <input class="col-12 form-control " id="amount_custom_donation" name="amount_custom_donation"
-                     onkeypress="validate(event)"
-                     onclick="this.select();" placeholder="تعداد را وارد کنید"
-                     style="width: 100%; text-align: left; direction: ltr" onkeyup="" onpaste="return false;" hidden>
+                     onkeypress="validate(event);" onclick="this.select();"
+                     placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount(this.value);"
+                     style="width: 100%; text-align: left; direction: ltr" onpaste="return false;" hidden>
               <br>
             </div>
           </div>
@@ -211,6 +195,7 @@ if (isset($_POST['donatebtn'])) {
               <th style="text-align: right; width: 3%; margin: 0"><input class="" type="checkbox" id="select_all"
                                                                          onclick="toggleAllChecks();">
               </th>
+              <th style="text-align: right; width: 3%; margin: 0">فعال</th>
             </tr>
               <?php
               $query = "SELECT * FROM customer";
@@ -227,10 +212,21 @@ if (isset($_POST['donatebtn'])) {
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
                   echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" disabled>
+                  ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" onkeyup="" disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
-                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleAll(this.id)">
+                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
+                      <?php
+                      if ($row['active'] === '0')
+                          echo 'disabled';
+                      ?>>
+              </td>
+              <td><input class="mx-auto" type="checkbox" name="active_check[<?php echo $row['id']; ?>]"
+                         id="active_check[<?php echo $row['id']; ?>]" onclick="toggleActive(this.id)"
+                  <?php
+                  if ($row['active'] === '1')
+                      echo 'checked';
+                  ?>
               </td>
                 <?php
                 }
@@ -252,14 +248,24 @@ if (isset($_POST['donatebtn'])) {
                   echo convertNumbers(0, true);
                   ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" disabled>
               </td>
-              <td colspan="2"><input class="" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
-                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleAll(this.id)">
+              <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
+                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
+                      <?php
+                      if ($row['active'] === '0')
+                          echo 'disabled';
+                      ?>>
+              </td>
+              <td><input class="mx-auto" type="checkbox" name="active_check[<?php echo $row['id']; ?>]"
+                         id="active_check[<?php echo $row['id']; ?>]" onclick="toggleActive(this.id)"
+                      <?php
+                      if ($row['active'] === '1')
+                          echo 'checked';
+                      ?>>
               </td>
                 <?php
                 }
                 }
                 ?>
-
           </table>
           <input class="form-control btn btn-primary" type="submit" name="exec" value="ثبت">
         </form>
@@ -275,7 +281,6 @@ if (isset($_POST['donatebtn'])) {
     var detailsLength = document.getElementsByClassName("details").length;
     for (var i = 0; i < detailsLength; i++)
         document.getElementsByClassName("details").item(i).innerHTML = document.getElementsByClassName("details").item(i).innerHTML.toPersianDigit();
-
 
     String.prototype.toEnglishDigit = function () {
         var find = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -294,21 +299,28 @@ if (isset($_POST['donatebtn'])) {
         var status = document.getElementById('select_all_vip').checked;
 
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
-            var select_all_count = "donate_count[" + counter + "]";
-            var select_vip_check = "donate_check[" + counter + "]";
+            var select_all_count = "donate_count[" + (counter + i) + "]";
+            var select_vip_check = "donate_check[" + (counter + i) + "]";
+            var select_all_active = "active_check[" + (counter + i) + "]";
             var select_vip = "vip[" + counter + "]";
             var inputs = document.getElementById(select_all_count);
             var checks = document.getElementById(select_vip_check);
+            var active = document.getElementById(select_all_active);
             var vip = document.getElementById(select_vip);
-            if (vip !== null) {
-                inputs.value = '۰';
+            if (vip !== null && active.checked) {
+                inputs.value = "۰";
                 inputs.disabled = !status;
                 checks.checked = status;
             }
-            counter += 1;
         }
-        fillFields(document.getElementById("money_custom_donation").value);
+
+        if (document.getElementById("mcd").checked)
+            fillFields(document.getElementById("money_custom_donation").value);
+        if (document.getElementById("acd").checked) {
+            fillFieldsCount();
+        }
     }
+
 
     function toggleAllChecks() {
         var counter = 5050505050;
@@ -317,16 +329,27 @@ if (isset($_POST['donatebtn'])) {
         toggleVipChecks();
 
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
-            var select_all_count = "donate_count[" + counter + "]";
-            var select_all_check = "donate_check[" + counter + "]";
+            var select_all_count = "donate_count[" + (counter + i) + "]";
+            var select_all_check = "donate_check[" + (counter + i) + "]";
+            var select_all_active = "active_check[" + (counter + i) + "]";
             var inputs = document.getElementById(select_all_count);
             var checks = document.getElementById(select_all_check);
-            inputs.value = '۰';
-            inputs.disabled = !status;
-            checks.checked = status;
-            counter += 1;
+            var active = document.getElementById(select_all_active);
+            if (active.checked) {
+                inputs.value = "۰";
+                inputs.disabled = !status;
+                checks.checked = status;
+            }
         }
-        fillFields(document.getElementById("money_custom_donation").value);
+
+        // fillFields(document.getElementById("money_custom_donation").value);
+        if (document.getElementById("mcd").checked)
+            fillFields(document.getElementById("money_custom_donation").value);
+        // if (document.getElementById("acd").value !== "۰")
+        //     fillFieldsCount();
+        if (document.getElementById("acd").checked) {
+            fillFieldsCount();
+        }
     }
 
 
@@ -342,15 +365,18 @@ if (isset($_POST['donatebtn'])) {
         let regex = /[0-9۰-۹]/;
         if (!regex.test(key)) {
             theEvent.returnValue = false;
-            if (theEvent.preventDefault) theEvent.preventDefault();
+            if (theEvent.preventDefault) {
+                theEvent.preventDefault();
+            }
         }
     }
 
     function fillFields(val) {
         document.getElementById('nav-cus').hidden = document.getElementById('money_custom_donation').value === "";
-        let xhttps;
-        let enVal = val.toEnglishDigit();
+        document.getElementById('nav-ext').hidden = document.getElementById('money_custom_donation').value === "";
+        val = val.toEnglishDigit();
 
+        let xhttps;
         xhttps = new XMLHttpRequest();
         xhttps.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -358,67 +384,126 @@ if (isset($_POST['donatebtn'])) {
                 document.getElementById("t_bread").innerText = this.responseText;
                 let strBread = document.getElementById("t_bread").innerText;
                 // Number of breads we can donate with value entered in the money_custom_donation
-                let strBreadCount = strBread.split(') ')[1];
-                console.log(strBread);
-                strBreadCount = strBreadCount.toEnglishDigit();
+                let sbc = strBread.split(') ')[1];
+                sbc = sbc.toEnglishDigit();
 
-                let members = 0;
-                let i;
-                for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
-                    if (document.getElementById("donate_check[" + (id + i) + "]").checked) {
-                        members += 1;
-                    }
-                }
-                console.log(members);
-                let check, input;
-                for (i = 0; i < members; i++) {
+                let check, input, family, active, extra, flag = true, nAllMembers = 0;
+                let fml = 0, nAllBreads = 0;
+                for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
                     check = document.getElementById("donate_check[" + (id + i) + "]");
-                    input = document.getElementById("donate_count[" + (id + i) + "]");
-                    if (check.checked) {
-                        let sbc = parseInt(strBreadCount, 10);
-                        let tb = sbc / members;
-                        tb = Math.floor(tb);
-                        console.log(tb * members);
-                        console.log(document.getElementById('t_bread').innerText.substring(13, 23).toEnglishDigit());
-                        input.innerText = tb.toString().toPersianDigit();
-                        input.value = tb.toString().toPersianDigit();
+                    active = document.getElementById("active_check[" + (id + i) + "]");
+                    if (check.checked && active.checked) {
+                        family = document.getElementById("family[" + (id + i) + "]");
+                        fml = family.innerText.toEnglishDigit();
+                        fml = parseInt(fml, 10);
+                        nAllMembers += fml;
                     }
                 }
+                for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+                    check = document.getElementById("donate_check[" + (id + i) + "]");
+                    active = document.getElementById("active_check[" + (id + i) + "]");
+                    if (check.checked && active.checked) {
+                        flag = false;
+                        family = document.getElementById("family[" + (id + i) + "]");
+                        fml = family.innerText.toEnglishDigit();
+                        fml = parseInt(fml, 10);
+                        var quotaForEachPerson = sbc * fml / nAllMembers;
+                        quotaForEachPerson = parseInt(quotaForEachPerson, 10);
+                        nAllBreads = nAllBreads + quotaForEachPerson;
+                        input = document.getElementById("donate_count[" + (id + i) + "]");
+                        input.value = quotaForEachPerson.toString().toPersianDigit();
+                    }
+                }
+                extra = sbc - nAllBreads;
+                extra = parseInt(extra, 10);
                 if (this.responseText === "") {
                     document.getElementById("t_bread").innerText = "۰";
+                } else {
+                    if (flag) {
+                        extra = sbc - nAllBreads;
+                        extra = parseInt(extra, 10);
+                        document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+                    } else if (extra !== undefined)
+                        document.getElementById("extra").innerText = extra.toString().toPersianDigit();
                 }
             }
-        }
-        ;
-        xhttps.open("GET", "don.php?q=" + val, true);
+        };
+        xhttps.open("GET", "showNav.php?q=" + val, true);
         xhttps.send();
     }
 
-    function toggleAll(dc) {
+    function fillFieldsCount() {
+        document.getElementById("nav-ext").hidden = document.getElementById("amount_custom_donation").value === "";
+        let id = 5050505050;
+
+        let check, input, family, active, extra, flag = true, nAllMembers = 0;
+        let fml = 0, nAllBreads = 0;
+        let sbc = document.getElementById("amount_custom_donation").value.toEnglishDigit();
+        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            active = document.getElementById("active_check[" + (id + i) + "]");
+            if (check.checked && active.checked) {
+                family = document.getElementById("family[" + (id + i) + "]");
+                fml = family.innerText.toEnglishDigit();
+                fml = parseInt(fml, 10);
+                nAllMembers += fml;
+            }
+        }
+        for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            active = document.getElementById("active_check[" + (id + i) + "]");
+            if (check.checked && active.checked) {
+                flag = false;
+                family = document.getElementById("family[" + (id + i) + "]");
+                fml = family.innerText.toEnglishDigit();
+                fml = parseInt(fml, 10);
+                var quotaForEachPerson = sbc * fml / nAllMembers;
+                quotaForEachPerson = parseInt(quotaForEachPerson, 10);
+                nAllBreads = nAllBreads + quotaForEachPerson;
+                input = document.getElementById("donate_count[" + (id + i) + "]");
+                input.value = quotaForEachPerson.toString().toPersianDigit();
+            }
+        }
+        extra = sbc - nAllBreads;
+        extra = parseInt(extra, 10);
+        if (flag) {
+            extra = sbc - nAllBreads;
+            extra = parseInt(extra, 10);
+            document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+        } else if (extra !== undefined)
+            document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+    }
+
+    function changeField() {
+
+    }
+
+    function toggleItems(dc) {
         var id = dc.substring(13, 23);
         console.log(id);
         var donate_count_str = "donate_count[" + id + "]";
         var family = "family[" + id + "]";
         console.log(family);
         var status = document.getElementById(donate_count_str).disabled;
-        document.getElementById(donate_count_str).value = '۰';
+        document.getElementById(donate_count_str).value = "۰";
         document.getElementById(donate_count_str).disabled = !status;
     }
 
     function showInputField() {
-        var mcdStatus = document.getElementById('money_custom_donation').hidden;
-        var acdStatus = document.getElementById('amount_custom_donation').hidden;
+        var mcdStatus = document.getElementById("money_custom_donation").hidden;
+        var acdStatus = document.getElementById("amount_custom_donation").hidden;
         if (!mcdStatus) {
-            document.getElementById('money_custom_donation').hidden = !mcdStatus;
-            document.getElementById('amount_custom_donation').value = "";
-            document.getElementById('amount_custom_donation').hidden = !acdStatus;
+            document.getElementById("money_custom_donation").hidden = !mcdStatus;
+            document.getElementById("amount_custom_donation").value = "";
+            document.getElementById("amount_custom_donation").hidden = !acdStatus;
 
         } else if (!acdStatus) {
-            document.getElementById('amount_custom_donation').hidden = !acdStatus;
-            document.getElementById('money_custom_donation').value = "";
-            document.getElementById('money_custom_donation').hidden = !mcdStatus;
+            document.getElementById("amount_custom_donation").hidden = !acdStatus;
+            document.getElementById("money_custom_donation").value = "";
+            document.getElementById("money_custom_donation").hidden = !mcdStatus;
         }
-        document.getElementById('nav-cus').hidden = true;
+        document.getElementById("nav-cus").hidden = true;
+        document.getElementById("nav-ext").hidden = true;
     }
 
     function showHint(str) {
@@ -434,6 +519,10 @@ if (isset($_POST['donatebtn'])) {
             xmlhttp.open("GET", "donate.php?q=" + str, true);
             xmlhttp.send();
         }
+    }
+
+    function toggleActive() {
+
     }
 
 </script>
