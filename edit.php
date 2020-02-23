@@ -158,12 +158,12 @@ if (isset($_POST['donatebtn'])) {
           <div class="row" style="direction: rtl;">
             <div class="radio col-3">
               <label>وارد کردن مبلغ
-                <input type="radio" name="cdon" id="mcd" onchange="showInputField()" checked>
+                <input type="radio" name="cdon" id="mcd" onchange="showInputField();" checked>
               </label>
             </div>
             <div class="radio col-3">
               <label>وارد کردن تعداد
-                <input type="radio" name="cdon" id="acd" onchange="showInputField()">
+                <input type="radio" name="cdon" id="acd" onchange="showInputField();">
               </label>
             </div>
 
@@ -212,7 +212,7 @@ if (isset($_POST['donatebtn'])) {
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
                   echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput(this.id);" onclick="this.select();"
+                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
                          onpaste="return false;"
                          disabled>
               </td>
@@ -237,7 +237,7 @@ if (isset($_POST['donatebtn'])) {
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
                   echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput(this.id);" onclick="this.select();"
+                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
                          onpaste="return false;" disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
@@ -447,7 +447,7 @@ if (isset($_POST['donatebtn'])) {
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
     }
 
-    function changeFieldsOnInput(u) {
+    function changeFieldsOnInput() {
         let id = 5050505050;
         let strBread = document.getElementById("t_bread").innerText;
         // Number of breads we can donate with value entered in the money_custom_donation
@@ -498,6 +498,18 @@ if (isset($_POST['donatebtn'])) {
         }
         document.getElementById("nav-cus").hidden = true;
         document.getElementById("nav-ext").hidden = true;
+        document.getElementById("select_all_vip").checked = false;
+        document.getElementById("select_all").checked = false;
+        var counter = 5050505050;
+        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            var select_all_count = "donate_count[" + (counter + i) + "]";
+            var select_all_check = "donate_check[" + (counter + i) + "]";
+            var inputs = document.getElementById(select_all_count);
+            var checks = document.getElementById(select_all_check);
+            inputs.value = "۰";
+            inputs.disabled = true;
+            checks.checked = false;
+        }
     }
 
     function showHint(str) {
