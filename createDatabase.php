@@ -16,22 +16,22 @@ $create_customer = mysqli_query($connection, $query);
 if (!$create_customer) {
     die(mysqli_error($connection));
 }
-$query = "CREATE TABLE IF NOT EXISTS store (id BIGINT NOT NULL AUTO_INCREMENT, first_name VARCHAR (250), last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT NULL, vip INT(1) NOT NULL, remaining INT(50) NOT NULL, total INT(50) NOT NULL, PRIMARY KEY (id))";
-$create_store = mysqli_query($connection, $query);
-if (!$create_customer) {
-    die(mysqli_error($connection));
-}
 $query = "ALTER TABLE customer AUTO_INCREMENT = 5050505050;";
 $ai = mysqli_query($connection, $query);
 if (!$ai) {
     die(mysqli_error($connection));
 }
-$query = "CREATE TABLE IF NOT EXISTS bread(price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+$query = "CREATE TABLE IF NOT EXISTS store (money BIGINT NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
+$create_store = mysqli_query($connection, $query);
+if (!$create_customer) {
+    die(mysqli_error($connection));
+}
+$query = "CREATE TABLE IF NOT EXISTS bread(price INT(50) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
 $create_bread = mysqli_query($connection, $query);
 if (!$create_bread) {
     die(mysqli_error($connection));
 }
-$query = "CREATE TABLE IF NOT EXISTS transaction (cid CHAR(10) NOT NULL, amount INT(50), price        INT(50)    NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
+$query = "CREATE TABLE IF NOT EXISTS transaction (cid CHAR(10) NOT NULL, amount INT(50), price INT(50) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
 $create_bread = mysqli_query($connection, $query);
 if (!$create_bread) {
     die(mysqli_error($connection));

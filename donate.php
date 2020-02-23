@@ -30,8 +30,6 @@ if (isset($_POST['exec'])) {
                         die(mysqli_error($connection));
 //                    header("Location: edit.php");
                 }
-//                echo $key . "<br />";
-//                echo convertNumbers($value, false) . "<br />";
             }
         }
     }

@@ -190,10 +190,10 @@ if (isset($_POST['donatebtn'])) {
               <th style="width: 12%;">کد</th>
               <th style="width: 8%;">.ت.ب</th>
               <th style="width: 10%;">تعداد</th>
-              <th style="text-align: right; width: 3%; margin: 0"><input class="" type="checkbox" id="select_all_vip"
+              <th style="text-align: right; width: 3%; margin: 0"><input type="checkbox" id="select_all_vip"
                                                                          onclick="toggleVipChecks();">
               </th>
-              <th style="text-align: right; width: 3%; margin: 0"><input class="" type="checkbox" id="select_all"
+              <th style="text-align: right; width: 3%; margin: 0"><input type="checkbox" id="select_all"
                                                                          onclick="toggleAllChecks();">
               </th>
             </tr>
@@ -212,7 +212,9 @@ if (isset($_POST['donatebtn'])) {
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
                   echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" onkeyup="" disabled>
+                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput(this.id);" onclick="this.select();"
+                         onpaste="return false;"
+                         disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
                                      id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)">
@@ -235,7 +237,8 @@ if (isset($_POST['donatebtn'])) {
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
                   echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" disabled>
+                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput(this.id);" onclick="this.select();"
+                         onpaste="return false;" disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
                                      id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
@@ -442,6 +445,31 @@ if (isset($_POST['donatebtn'])) {
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
         } else if (extra !== undefined)
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+    }
+
+    function changeFieldsOnInput(u) {
+        let id = 5050505050;
+        let strBread = document.getElementById("t_bread").innerText;
+        // Number of breads we can donate with value entered in the money_custom_donation
+        let sbc = strBread.split(') ')[1];
+        sbc = sbc.toEnglishDigit();
+        console.log(sbc);
+
+        let check, extra, input, totalBread = 0;
+        for (var i = 0; i < <?php getAllActiveMembersCount();?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            if (check.checked) {
+                input = document.getElementById("donate_count[" + (id + i) + "]");
+                console.log(input.value);
+                if (input.value !== "") {
+                    var inputValue = input.value.toString().toEnglishDigit();
+                    inputValue = parseInt(inputValue, 10);
+                    totalBread += inputValue;
+                }
+            }
+        }
+        extra = sbc - totalBread;
+        document.getElementById("extra").innerText = extra.toString().toPersianDigit();
     }
 
     function toggleItems(dc) {
