@@ -1,11 +1,13 @@
 <?php
-include "db1.php";
+include "functions.php";
 include "entope.php";
 
-if (isset($_POST['exec'])) {
+if (isset($_POST['execute-donation'])) {
     $count = $_POST["donate_count"];
     print_r($_POST["donate_count"]);
-    print_r($_POST["active_check"]);
+    $extra = convertNumbers($_POST["extrai"], false);
+    $money = $extra * getBreadPrice();
+    echo $money;
 
     if (empty($count)) {
         echo "<script type='text/javascript'>" .
@@ -31,6 +33,12 @@ if (isset($_POST['exec'])) {
 //                    header("Location: edit.php");
                 }
             }
+            $query = "INSERT INTO store (money) VALUE ('{$money}')";
+            $add_money_to_store = mysqli_query($connection, $query);
+            if (!$add_money_to_store)
+                die(mysqli_error($connection));
+
+
         }
     }
 }

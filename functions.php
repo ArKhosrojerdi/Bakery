@@ -58,23 +58,30 @@ function buyBread()
                         $buy = mysqli_query($connection, $query);
                         if (!$buy) {
                             die(mysqli_error($connection));
-                        } else {
-                            $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
-                            $select_price = mysqli_query($connection, $query);
-                            if (!$select_price) {
+                        }
+                        $query = "SELECT total as t FROM customer WHERE id = '{$customer_id}'";
+                        $select_total = mysqli_query($connection, $query);
+                        if ($row = mysqli_fetch_assoc($select_total)) {
+                            $total = $row['t'];
+                            $total += $amount;
+                            $query = "UPDATE customer SET total = '{$total}' WHERE id = '{$customer_id}'";
+                            $update_total = mysqli_query($connection, $query);
+                            if (!$update_total)
                                 die(mysqli_error($connection));
-                            } else {
-                                if ($row = mysqli_fetch_assoc($select_price)) {
-                                    $query = "INSERT INTO transaction(cid, amount, price) VALUES ('{$customer_id}', '{$amount}', '{$row['price']}')";
-                                    $transaction = mysqli_query($connection, $query);
-                                    if (!$transaction) {
-                                        die(mysqli_error($connection));
-                                    } else {
-                                        $message = "خرید با موفقیت انجام شد.";
-                                        echo "<script type='text/javascript'>alert('$message');</script>";
-                                    }
-                                }
+                        }
+                        $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
+                        $select_price = mysqli_query($connection, $query);
+                        if (!$select_price) {
+                            die(mysqli_error($connection));
+                        }
+                        if ($row = mysqli_fetch_assoc($select_price)) {
+                            $query = "INSERT INTO transaction(cid, amount, price) VALUES ('{$customer_id}', '{$amount}', '{$row['price']}')";
+                            $transaction = mysqli_query($connection, $query);
+                            if (!$transaction) {
+                                die(mysqli_error($connection));
                             }
+                            $message = "خرید با موفقیت انجام شد.";
+                            echo "<script type='text/javascript'>alert('$message');</script>";
                         }
                     } else {
                         $message = "تعداد انتخاب شده در محدوده مجاز نمی‌باشد و ";
@@ -148,8 +155,4 @@ function getAllNormalMembersCount()
     $getAllActiveMembers = mysqli_query($connection, $query);
     if ($row = mysqli_fetch_assoc($getAllActiveMembers))
         echo $row['cm'];
-}
-
-function getVipIds() {
-
 }

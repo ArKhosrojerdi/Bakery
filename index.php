@@ -1,6 +1,8 @@
 <?php
+
 include "entope.php";
 include "functions.php";
+
 ob_start();
 session_start();
 buyBread();
@@ -43,7 +45,8 @@ buyBread();
           </div>
           <div class="form-group">
             <label for="amount" class="text-right">تعداد</label>
-            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)" onpaste="return false;" required>
+            <input class="form-control" id="amount" name="amount" onkeypress="validate(event)" onpaste="return false;"
+                   required>
           </div>
           <div class="form-group">
             <label for="remaining" class="text-right">باقیمانده</label>

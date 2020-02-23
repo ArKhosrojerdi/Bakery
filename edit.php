@@ -81,28 +81,28 @@ if (isset($_POST['donatebtn'])) {
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./stylesheets/stylesheet.css" rel="stylesheet">
   <script src="JsBarcode.all.min.js"></script>
-<!--  <style>-->
-<!--    #myBtn {-->
-<!--      display: none;-->
-<!--      position: fixed;-->
-<!--      bottom: 0;-->
-<!--      right: 0;-->
-<!--      z-index: 99;-->
-<!--      font-size: 18px;-->
-<!--      border: none;-->
-<!--      outline: none;-->
-<!--      background-color: #dc3545;-->
-<!--      color: #fff;-->
-<!--      cursor: pointer;-->
-<!--      padding: 15px 25px;-->
-<!--      border-radius: 5px 0 0 0;-->
-<!--    }-->
-<!---->
-<!--    #myBtn:hover {-->
-<!--      background-color: #d03545;-->
-<!--      box-shadow: 2px 2px 4px #1b1e21;-->
-<!--    }-->
-<!--  </style>-->
+  <style>
+    #myBtn {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #dc3545;
+      color: #fff;
+      cursor: pointer;
+      padding: 15px 25px;
+      border-radius: 5px 0 0 0;
+    }
+
+    #myBtn:hover {
+      background-color: #d03545;
+      box-shadow: 2px 2px 4px #1b1e21;
+    }
+  </style>
 </head>
 <body>
 
@@ -118,27 +118,6 @@ if (isset($_POST['donatebtn'])) {
   </label>
 </nav>
 
-<!--<div class="container">-->
-<!--  <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5">-->
-<!--    <div class="card card-body">-->
-<!--      <div class="card-body">-->
-<!--        <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>-->
-<!--        <hr>-->
-<!--        <form action="" method="post" enctype="multipart/form-data">-->
-<!--          <div class="form-group">-->
-<!--            <label for="donation" class="text-right">مقدار کمک مالی به تومان</label>-->
-<!--            <input name="donation" class="form-control" id="donation" onkeypress="validate(event)">-->
-<!--          </div>-->
-<!--          <div class="form-group">-->
-<!--            <input class="btn btn-success form-control" type="submit" name="donatebtn"-->
-<!--                   value="اضافه کردن به حساب">-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="mx-auto" style="width: 95% !important;">
   <div class="mt-5">
     <div class="card card-body">
@@ -150,6 +129,7 @@ if (isset($_POST['donatebtn'])) {
         <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
         <hr>
         <form action="donate.php" method="post" enctype="multipart/form-data">
+          <input type="text" value="" name="extrai" id="extrai" hidden>
 
           <div class="col" style="direction: rtl">
             <div class="row text-right">
@@ -273,7 +253,7 @@ if (isset($_POST['donatebtn'])) {
                 }
                 ?>
           </table>
-          <input class="form-control btn btn-primary" type="submit" name="exec" value="ثبت">
+          <input class="form-control btn btn-primary" type="submit" name="execute-donation" value="ثبت">
         </form>
       </div>
     </div>
@@ -442,8 +422,12 @@ if (isset($_POST['donatebtn'])) {
                         extra = sbc - nAllBreads;
                         extra = parseInt(extra, 10);
                         document.getElementById("extra").innerText = extra.toString().toPersianDigit();
-                    } else if (extra !== undefined)
+                        document.getElementById("extrai").value = extra.toString().toPersianDigit();
+
+                    } else if (extra !== undefined) {
                         document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+                        document.getElementById("extrai").value = extra.toString().toPersianDigit();
+                    }
                 }
             }
         };
@@ -487,8 +471,11 @@ if (isset($_POST['donatebtn'])) {
             extra = sbc - nAllBreads;
             extra = parseInt(extra, 10);
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
-        } else if (extra !== undefined)
+            document.getElementById("extrai").value = extra.toString().toPersianDigit();
+        } else if (extra !== undefined) {
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extrai").value = extra.toString().toPersianDigit();
+        }
     }
 
     function changeFieldsOnInput() {

@@ -8,8 +8,8 @@ include "entope.php";
 include "functions.php";
 
 if (isset($_POST['add_member'])) {
-    $fname = $_POST['first_name'];
-    $lname = $_POST['last_name'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
     $family = $_POST['family'];
     $family = convertNumbers($family, false);
     if (isset($_POST['vip_check'])) $vip = 1;
@@ -19,7 +19,8 @@ if (isset($_POST['add_member'])) {
 
     $remaining = $_POST['remaining'];
     $remaining = convertNumbers($remaining, false);
-    $query = "INSERT INTO customer (first_name, last_name, family, active, vip, remaining, total) VALUES ('{$fname}', '{$lname}', '{$family}', '{$active}', '{$vip}', '{$remaining}', 0);";
+    $query = "INSERT INTO customer (first_name, last_name, family, active, vip, remaining, total) ";
+    $query .= "VALUES ('{$first_name}', '{$last_name}', '{$family}', '{$active}', '{$vip}', '{$remaining}', 0);";
     $addMember = mysqli_query($connection, $query);
     if (!$addMember) {
         die(mysqli_error($connection));
@@ -50,7 +51,7 @@ if (isset($_POST['add_member'])) {
         <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اضافه‌کردن خانوار</h4>
         <hr>
-        <form action="addMember.php" method="post" enctype="multipart/form-data" >
+        <form action="addMember.php" method="post" enctype="multipart/form-data">
 
           <div class="col" style="direction: rtl">
             <div class="row text-right">
