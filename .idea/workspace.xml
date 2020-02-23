@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b35bc130-4c7e-4a7c-b7ad-e7f986eadeab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/editBreadPrice.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/persianTypeAddMembers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addMember.php" beforeDir="false" afterPath="$PROJECT_DIR$/addMember.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/createDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/don.php" beforeDir="false" afterPath="$PROJECT_DIR$/showNav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/donate.php" beforeDir="false" afterPath="$PROJECT_DIR$/donate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db1.php" beforeDir="false" afterPath="$PROJECT_DIR$/db1.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home1.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/initDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/initDatabase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stylesheets/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +79,7 @@
       <workItem from="1581157593779" duration="1738000" />
       <workItem from="1581187558753" duration="2929000" />
       <workItem from="1581507303037" duration="13132000" />
-      <workItem from="1581579912956" duration="91963000" />
+      <workItem from="1581579912956" duration="107815000" />
     </task>
     <servers />
   </component>
@@ -120,10 +115,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1580897267341" />
-    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581895072570">
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1581972634360">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581895072570" />
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1581972634360" />
     <state x="341" y="164" key="SettingsEditor" timestamp="1581945052245">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -132,18 +127,18 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="495" y="147" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1581874636174" />
-    <state x="498" y="160" width="683" height="729" key="find.popup" timestamp="1581944533630">
+    <state x="498" y="160" width="683" height="729" key="find.popup" timestamp="1582401752763">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="498" y="160" width="683" height="729" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581944533630" />
+    <state x="498" y="160" width="683" height="729" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1582401752763" />
     <state x="505" y="248" key="run.anything.popup" timestamp="1581606662677">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="505" y="248" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581606662677" />
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1581944501146">
-      <screen x="0" y="23" width="1680" height="970" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1582394906630">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581944492522" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1582394906630" />
     <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.23.1680.970@0.23.1680.970" timestamp="1581944501146" />
   </component>
 </project>

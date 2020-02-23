@@ -6,16 +6,14 @@ $remaining = 200;
 for (; $i < 150; $i = $i + 1) {
     if ($i < 50) {
         $family = rand(4, 7);
-        $query = "INSERT INTO customer (id, active, family, remaining, total, vip) VALUES ('{$code}', 1, '{$family}', 200, 0, 1)";
-        $code = $code + 1;
+        $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 1)";
         $initDB = mysqli_query($connection, $query);
         if (!$initDB) {
             die(mysqli_error($connection));
         }
     } else {
         $family = rand(2, 4);
-        $query = "INSERT INTO customer (id, active, family, remaining, total, vip) VALUES ('{$code}', 1, '{$family}', 200, 0, 0)";
-        $code = $code + 1;
+        $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 0)";
         $initDB = mysqli_query($connection, $query);
         if (!$initDB) {
             die(mysqli_error($connection));

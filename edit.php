@@ -75,6 +75,7 @@ if (isset($_POST['donatebtn'])) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <title>سامانه مدیریت سهمیه نان | ویرایش قیمت</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -195,7 +196,6 @@ if (isset($_POST['donatebtn'])) {
               <th style="text-align: right; width: 3%; margin: 0"><input class="" type="checkbox" id="select_all"
                                                                          onclick="toggleAllChecks();">
               </th>
-              <th style="text-align: right; width: 3%; margin: 0">فعال</th>
             </tr>
               <?php
               $query = "SELECT * FROM customer";
@@ -215,25 +215,14 @@ if (isset($_POST['donatebtn'])) {
                   ?>" onkeypress="validate(event)" onclick="this.select();" onpaste="return false;" onkeyup="" disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
-                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
-                      <?php
-                      if ($row['active'] === '0')
-                          echo 'disabled';
-                      ?>>
-              </td>
-              <td><input class="mx-auto" type="checkbox" name="active_check[<?php echo $row['id']; ?>]"
-                         id="active_check[<?php echo $row['id']; ?>]" onclick="toggleActive(this.id)"
-                  <?php
-                  if ($row['active'] === '1')
-                      echo 'checked';
-                  ?>
+                                     id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)">
               </td>
                 <?php
                 }
                 }
                 ?>
                 <?php
-                $select_menu_items = mysqli_query($connection, $query);
+                $select_menu_items = mysqli_query($connection, $query); // read from top again
                 while ($row = mysqli_fetch_assoc($select_menu_items)) {
                 if ($row['vip'] === '0') { ?>
             <tr>
@@ -250,17 +239,7 @@ if (isset($_POST['donatebtn'])) {
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
                                      id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
-                      <?php
-                      if ($row['active'] === '0')
-                          echo 'disabled';
-                      ?>>
-              </td>
-              <td><input class="mx-auto" type="checkbox" name="active_check[<?php echo $row['id']; ?>]"
-                         id="active_check[<?php echo $row['id']; ?>]" onclick="toggleActive(this.id)"
-                      <?php
-                      if ($row['active'] === '1')
-                          echo 'checked';
-                      ?>>
+                >
               </td>
                 <?php
                 }
@@ -301,13 +280,11 @@ if (isset($_POST['donatebtn'])) {
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
             var select_all_count = "donate_count[" + (counter + i) + "]";
             var select_vip_check = "donate_check[" + (counter + i) + "]";
-            var select_all_active = "active_check[" + (counter + i) + "]";
-            var select_vip = "vip[" + counter + "]";
+            var select_vip = "vip[" + (counter + i) + "]";
             var inputs = document.getElementById(select_all_count);
             var checks = document.getElementById(select_vip_check);
-            var active = document.getElementById(select_all_active);
             var vip = document.getElementById(select_vip);
-            if (vip !== null && active.checked) {
+            if (vip !== null) {
                 inputs.value = "۰";
                 inputs.disabled = !status;
                 checks.checked = status;
@@ -331,15 +308,12 @@ if (isset($_POST['donatebtn'])) {
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
             var select_all_count = "donate_count[" + (counter + i) + "]";
             var select_all_check = "donate_check[" + (counter + i) + "]";
-            var select_all_active = "active_check[" + (counter + i) + "]";
             var inputs = document.getElementById(select_all_count);
             var checks = document.getElementById(select_all_check);
-            var active = document.getElementById(select_all_active);
-            if (active.checked) {
-                inputs.value = "۰";
-                inputs.disabled = !status;
-                checks.checked = status;
-            }
+            inputs.value = "۰";
+            inputs.disabled = !status;
+            checks.checked = status;
+
         }
 
         // fillFields(document.getElementById("money_custom_donation").value);
@@ -387,12 +361,11 @@ if (isset($_POST['donatebtn'])) {
                 let sbc = strBread.split(') ')[1];
                 sbc = sbc.toEnglishDigit();
 
-                let check, input, family, active, extra, flag = true, nAllMembers = 0;
+                let check, input, family, extra, flag = true, nAllMembers = 0;
                 let fml = 0, nAllBreads = 0;
                 for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
                     check = document.getElementById("donate_check[" + (id + i) + "]");
-                    active = document.getElementById("active_check[" + (id + i) + "]");
-                    if (check.checked && active.checked) {
+                    if (check.checked) {
                         family = document.getElementById("family[" + (id + i) + "]");
                         fml = family.innerText.toEnglishDigit();
                         fml = parseInt(fml, 10);
@@ -401,8 +374,7 @@ if (isset($_POST['donatebtn'])) {
                 }
                 for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
                     check = document.getElementById("donate_check[" + (id + i) + "]");
-                    active = document.getElementById("active_check[" + (id + i) + "]");
-                    if (check.checked && active.checked) {
+                    if (check.checked) {
                         flag = false;
                         family = document.getElementById("family[" + (id + i) + "]");
                         fml = family.innerText.toEnglishDigit();
@@ -436,13 +408,12 @@ if (isset($_POST['donatebtn'])) {
         document.getElementById("nav-ext").hidden = document.getElementById("amount_custom_donation").value === "";
         let id = 5050505050;
 
-        let check, input, family, active, extra, flag = true, nAllMembers = 0;
+        let check, input, family, extra, flag = true, nAllMembers = 0;
         let fml = 0, nAllBreads = 0;
         let sbc = document.getElementById("amount_custom_donation").value.toEnglishDigit();
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
-            active = document.getElementById("active_check[" + (id + i) + "]");
-            if (check.checked && active.checked) {
+            if (check.checked) {
                 family = document.getElementById("family[" + (id + i) + "]");
                 fml = family.innerText.toEnglishDigit();
                 fml = parseInt(fml, 10);
@@ -451,8 +422,7 @@ if (isset($_POST['donatebtn'])) {
         }
         for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
-            active = document.getElementById("active_check[" + (id + i) + "]");
-            if (check.checked && active.checked) {
+            if (check.checked) {
                 flag = false;
                 family = document.getElementById("family[" + (id + i) + "]");
                 fml = family.innerText.toEnglishDigit();
@@ -472,10 +442,6 @@ if (isset($_POST['donatebtn'])) {
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
         } else if (extra !== undefined)
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
-    }
-
-    function changeField() {
-
     }
 
     function toggleItems(dc) {
@@ -519,10 +485,6 @@ if (isset($_POST['donatebtn'])) {
             xmlhttp.open("GET", "donate.php?q=" + str, true);
             xmlhttp.send();
         }
-    }
-
-    function toggleActive() {
-
     }
 
 </script>
