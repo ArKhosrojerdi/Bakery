@@ -81,8 +81,32 @@ if (isset($_POST['donatebtn'])) {
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./stylesheets/stylesheet.css" rel="stylesheet">
   <script src="JsBarcode.all.min.js"></script>
+<!--  <style>-->
+<!--    #myBtn {-->
+<!--      display: none;-->
+<!--      position: fixed;-->
+<!--      bottom: 0;-->
+<!--      right: 0;-->
+<!--      z-index: 99;-->
+<!--      font-size: 18px;-->
+<!--      border: none;-->
+<!--      outline: none;-->
+<!--      background-color: #dc3545;-->
+<!--      color: #fff;-->
+<!--      cursor: pointer;-->
+<!--      padding: 15px 25px;-->
+<!--      border-radius: 5px 0 0 0;-->
+<!--    }-->
+<!---->
+<!--    #myBtn:hover {-->
+<!--      background-color: #d03545;-->
+<!--      box-shadow: 2px 2px 4px #1b1e21;-->
+<!--    }-->
+<!--  </style>-->
 </head>
 <body>
+
+<button onclick="topFunction()" id="myBtn" title="بالا">&uarr;</button>
 
 <nav id="nav-cus" class="navbar fixed-top" hidden>
   <label class="nav nav-item mx-auto"> نان کمک کنید &nbsp;<span id="t_bread"></span>&nbsp; شما می‌توانید </label>
@@ -275,6 +299,26 @@ if (isset($_POST['donatebtn'])) {
         }
         return replaceString;
     };
+
+    var mybutton = document.getElementById("myBtn");
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 
     function toggleVipChecks() {
         var counter = 5050505050;

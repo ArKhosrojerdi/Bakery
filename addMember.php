@@ -48,9 +48,9 @@ if (isset($_POST['add_member'])) {
         <a href="editBreadPrice.php" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
         <a href="edit.php" class="float-left btn btn-outline-dark ml-1">صفحه اهدا</a>
         <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
-        <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
+        <h4 class="card-title mb-4 mt-1 text-right">اضافه‌کردن خانوار</h4>
         <hr>
-        <form action="addMember.php" method="post" enctype="multipart/form-data">
+        <form action="addMember.php" method="post" enctype="multipart/form-data" >
 
           <div class="col" style="direction: rtl">
             <div class="row text-right">
@@ -92,16 +92,24 @@ if (isset($_POST['add_member'])) {
 
             <tr>
               <td><input class="mx-auto" type="checkbox" name="vip_check" id="vip_check"></td>
-              <td><input class="form-control" type="text" name="family" id="family" value="۳" required></td>
+              <td><input class="form-control" type="text" name="family" id="family" value="۳" required
+                         oninvalid="this.setCustomValidity('تعداد اعضای هر خانوار را وارد کنید.')"
+                         oninput="setCustomValidity('')"></td>
               <td><input style="direction: rtl; text-align: right;" class="form-control" type="text" name="last_name"
-                         id="last_name" onpaste="return false;" required></td>
+                         id="last_name" onpaste="return false;" required
+                         oninvalid="this.setCustomValidity('نام خانوادگی را وارد کنید.')"
+                         oninput="setCustomValidity('')"></td>
               <td><input style="direction: rtl; text-align: right;" class="form-control" type="text" name="first_name"
-                         id="first_name" value="" onpaste="return false;" required></td>
+                         id="first_name" value="" onpaste="return false;" required
+                         oninvalid="this.setCustomValidity('نام را وارد کنید.')"
+                         oninput="setCustomValidity('')"></td>
               <td><input class="form-control" type="text" name="remaining"
-                         id="remaining" value="۲۰۰" onkeypress="validate(event)" onpaste="return false;" required></td>
+                         id="remaining" value="۲۰۰" onkeypress="validate(event)" onpaste="return false;" required
+                         oninvalid="this.setCustomValidity('تعداد سهمیه اولیه نان را وارد کنید.')"
+                         oninput="setCustomValidity('')"></td>
               <td><input class="mx-auto" type="checkbox" name="active_check" id="active_check" checked></td>
           </table>
-          <input class="form-control btn btn-primary" type="submit" name="add_member" value="اضافه‌کردن خانوار">
+          <input class="form-control btn btn-primary" type="submit" name="add_member" value="اضافه‌کردن">
         </form>
       </div>
     </div>

@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b35bc130-4c7e-4a7c-b7ad-e7f986eadeab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addMember.php" beforeDir="false" afterPath="$PROJECT_DIR$/addMember.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stylesheets/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +76,7 @@
       <workItem from="1581157593779" duration="1738000" />
       <workItem from="1581187558753" duration="2929000" />
       <workItem from="1581507303037" duration="13132000" />
-      <workItem from="1581579912956" duration="113977000" />
+      <workItem from="1581579912956" duration="116449000" />
     </task>
     <servers />
   </component>
@@ -130,10 +132,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="505" y="248" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1581606662677" />
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1582394906630">
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup" timestamp="1582475154377">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1582394906630" />
+    <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1582475154377" />
     <state x="505" y="227" width="670" height="732" key="search.everywhere.popup/0.23.1680.970@0.23.1680.970" timestamp="1581944501146" />
   </component>
 </project>
