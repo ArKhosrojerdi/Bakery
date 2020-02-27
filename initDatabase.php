@@ -11,13 +11,12 @@ for (; $i < 150; $i = $i + 1) {
         if (!$initDB) {
             die(mysqli_error($connection));
         }
-    } else {
-        $family = rand(2, 4);
-        $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 0)";
-        $initDB = mysqli_query($connection, $query);
-        if (!$initDB) {
-            die(mysqli_error($connection));
-        }
+    }
+    $family = rand(2, 4);
+    $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 0)";
+    $initDB = mysqli_query($connection, $query);
+    if (!$initDB) {
+        die(mysqli_error($connection));
     }
 }
 $query = "INSERT INTO bread (price) VALUE (500)";

@@ -156,3 +156,11 @@ function getAllNormalMembersCount()
     if ($row = mysqli_fetch_assoc($getAllActiveMembers))
         echo $row['cm'];
 }
+
+function getStore() {
+    global $connection;
+    $query = "SELECT sum(money) as bank FROM store;";
+    $get_bank = mysqli_query($connection, $query);
+    if ($row = mysqli_fetch_assoc($get_bank))
+        echo $row['bank'];
+}

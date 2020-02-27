@@ -6,7 +6,7 @@ if (isset($_POST['execute-donation'])) {
     $count = $_POST["donate_count"];
     print_r($_POST["donate_count"]);
     $extra = convertNumbers($_POST["extrai"], false);
-    echo "<br>" . $extra . "</br>";
+//    echo "<br>" . $extra . "</br>";
     if ($extra < 0) {
         echo "<script type='text/javascript'>" .
             "alert('بیش از حد مجاز نان توزیع کرده‌اید.');" .
@@ -14,7 +14,6 @@ if (isset($_POST['execute-donation'])) {
             "</script>";
     } else {
         $money = $extra * getBreadPrice();
-//    echo "<br>" . $money . "</br>";
 
         if (empty($count)) {
             echo "<script type='text/javascript'>" .
@@ -40,6 +39,7 @@ if (isset($_POST['execute-donation'])) {
 //                    header("Location: edit.php");
                     }
                 }
+                // Add money to cellar for later donations.
                 $query = "INSERT INTO store (money) VALUE ('{$money}')";
                 $add_money_to_store = mysqli_query($connection, $query);
                 if (!$add_money_to_store)
