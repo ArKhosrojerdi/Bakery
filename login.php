@@ -9,7 +9,7 @@ session_start();
   <title>سامانه مدیریت سهمیه نان</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
 </head>
 
 <body>
@@ -25,7 +25,7 @@ session_start();
             $_SESSION['valid'] = true;
             $_SESSION['timeout'] = time();
             $_SESSION['username'] = 'admin';
-            header("Location: edit.php");
+            header("Location: edit");
 
         } else {
             $msg = '!شناسه یا گذرواژه نادرست است';
@@ -38,11 +38,10 @@ session_start();
   <div class="col-lg-6 col-md-9 col-sm-12 mx-auto mt-5">
     <div class="card card-body">
       <div class="card-body">
-        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
+        <a href="index" class="float-left btn btn-outline-dark">برگرد</a>
         <h4 class="card-title mb-4 mt-1 text-right">صفحه ورود</h4>
         <hr>
-        <form role="form"
-              action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-group">
+        <form role="form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-group">
           <label>شناسه</label>
           <input type="text" class="form-control"
                  name="username"
@@ -55,7 +54,7 @@ session_start();
           <button class="btn btn-primary form-control" type="submit"
                   name="login">ورود
           </button>
-          <!--          Click here to clean <a href="logout.php" title="Logout">Session.-->
+          <!--          Click here to clean <a href="logout" title="Logout">Session.-->
         </form>
       </div>
     </div>

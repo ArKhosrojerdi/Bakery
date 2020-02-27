@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
+  header("Location: login");
   exit();
 }
 include "entope.php";
@@ -86,12 +86,19 @@ if (isset($_POST['donatebtn'])) {
 <button onclick="topFunction()" id="myBtn" title="بالا">&uarr;</button>
 
 <nav id="nav-cus" class="navbar fixed-top" hidden>
-  <label class="nav nav-item mx-auto"> نان کمک کنید &nbsp;<span id="t_bread"></span>&nbsp; شما می‌توانید </label>
+  <p class="nav nav-item mx-auto l-align align-items-center" style="direction: ltr; text-align: right;">
+    (تومان
+    <span class="mx-2 l-align" id="r_money"></span>
+    )نان کمک کنید. باقیمانده
+    <span class="mx-4 l-align" id="t_bread" style="font-size: 28px;"></span>
+    شما می‌توانید
+  </p>
 </nav>
 
 <nav id="nav-ext" class="navbar fixed-bottom" hidden>
   <label class="nav nav-item mx-auto">
-    <span id="extra">&nbsp;</span><span class="r-align">باقیمانده: </span>
+    <span class="mr-4" id="extra"></span>
+    <span class="r-align">باقیمانده: </span>
   </label>
 </nav>
 
@@ -99,59 +106,32 @@ if (isset($_POST['donatebtn'])) {
   <div class="mt-5">
     <div class="card card-body">
       <div class="card-body">
-        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
-        <a href="editBreadPrice.php" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
-        <a href="addMember.php" class="float-left btn btn-outline-dark ml-1">اضافه‌کردن خانوار</a>
-        <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
+        <a href="index" class="float-left btn btn-outline-dark">برگرد</a>
+        <a href="editBreadPrice" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
+        <a href="addMember" class="float-left btn btn-outline-dark ml-1">اضافه‌کردن خانوار</a>
+        <a href="logout" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
         <hr>
-
-        <div>
-          <div class="col" style="direction: rtl;">
-            <div class="row text-right">
-              <p class="details col-lg-6 col-sm-12 my-2"> تعداد کل خانوارها:
-                <?php getAllMembersCount(); ?>
-              </p>
-              <p class="details col-lg-6 col-sm-12 my-2"> تعداد کل خانوارهای فعال:
-                <?php getAllActiveMembersCount(); ?>
-              </p>
-            </div>
-            <div class="row">
-              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای VIP فعال:
-                <?php getVipActiveMembersCount(); ?>
-              </p>
-              <p class="details col-lg-6 col-sm-12 my-2">تعداد خانوار‌های VIP (کل):
-                <?php getAllVipMembersCount(); ?>
-              </p>
-            </div>
-            <div class="row">
-              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای عادی فعال:
-                <?php getNormalActiveMembersCount(); ?>
-              </p>
-              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای عادی (کل):
-                <?php getAllNormalMembersCount(); ?>
-              </p>
-            </div>
-          </div>
-
-          <div class="col align-items-center">
-            <div class="row">
-              <p class="col-6 my-1 r-align">
-                <b style="font-size: 28px">
-                  <?php echo convertNumbers(getBreadPrice(), true); ?>
-                </b>
-                تومان
-              </p>
-              <p class="col-6 my-1 align-self-center">
-                <b>
-                  :قیمت نان
-                </b>
-              </p>
-            </div>
+        <?php include "customersStats.php"; ?>
+        <div class="col align-items-center">
+          <div class="row">
+            <p class="col-6 my-1 r-align">
+              <b style="font-size: 28px">
+                <?php echo convertNumbers(getBreadPrice(), true); ?>
+              </b>
+              تومان
+            </p>
+            <p class="col-6 my-1 align-self-center">
+              <b>
+                :قیمت نان
+              </b>
+            </p>
           </div>
         </div>
-        <form action="donate.php" method="post" enctype="multipart/form-data">
+        <form action="donate" method="post" enctype="multipart/form-data">
           <input type="text" value="" name="extrai" id="extrai" hidden>
+          <input type="text" value="" name="rmoney" id="rmoney" hidden>
+
           <div class="row my-3 r-align align-items-center d-flex mx-auto">
             <div class="radio col-lg-3 col-sm-12 l-align align-self-center">
               <label class="mr-2" for="use-bank">استفاده از انبار</label>
@@ -171,7 +151,7 @@ if (isset($_POST['donatebtn'])) {
             <div class="col-lg-2 col-sm-6">
               <input class="form-control" type="text" id="bank_usage" name="bank_usage"
                      onkeypress="validate(event);" placeholder="...تعداد برداشت از انبار"
-                     onkeyup="validateBankUsage();" onpaste="return false;"
+                     onkeyup="validateBankUsage(this.value);" onpaste="return false;"
                      disabled>
             </div>
             <div class="col-lg-1 col-sm-12">
@@ -199,7 +179,8 @@ if (isset($_POST['donatebtn'])) {
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="مبلغ را وارد کنید" onkeyup="fillFields(this.value);"
                      onpaste="return false;">
-              <input class="col-lg-4 col-sm-4 form-control my-auto" id="amount_custom_donation" name="amount_custom_donation"
+              <input class="col-lg-4 col-sm-4 form-control my-auto" id="amount_custom_donation"
+                     name="amount_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount(this.value);"
                      onpaste="return false;"
@@ -210,12 +191,12 @@ if (isset($_POST['donatebtn'])) {
 
           <div class="col">
             <div class="row r-align">
-              <p class="col-lg-3 col-sm-12 r-align">
+              <small class="col-lg-3 col-sm-12 r-align mb-2">
                 چک باکس راست: انتخاب همه
-              </p>
-              <p class="col-lg-3 col-sm-12 r-align">
+              </small>
+              <small class="col-lg-3 col-sm-12 r-align mb-2">
                 چک باکس چپ: انتخاب همه VIPها
-              </p>
+              </small>
             </div>
           </div>
 
@@ -407,73 +388,145 @@ if (isset($_POST['donatebtn'])) {
         }
     }
 
+    //function fillFields(val) {
+    //    document.getElementById('nav-cus').hidden = document.getElementById('money_custom_donation').value === "";
+    //    document.getElementById('nav-ext').hidden = document.getElementById('money_custom_donation').value === "";
+    //    val = val.toEnglishDigit();
+    //
+    //    let xhttps;
+    //    xhttps = new XMLHttpRequest();
+    //    xhttps.onreadystatechange = function () {
+    //        if (this.readyState === 4 && this.status === 200) {
+    //            let id = 5050505050;
+    //            document.getElementById("t_bread").innerText = this.responseText;
+    //            let strBread = document.getElementById("t_bread").innerText;
+    //            // Number of breads we can donate with value entered in the money_custom_donation
+    //            let sbc = strBread.split(') ')[1];
+    //            sbc = sbc.toEnglishDigit();
+    //
+    //            let check, input, family, extra, flag = true, nAllMembers = 0;
+    //            let fml = 0, nAllBreads = 0;
+    //            for (var i = 0; i < <?php //getAllActiveMembersCount(); ?>//; i++) {
+    //                check = document.getElementById("donate_check[" + (id + i) + "]");
+    //                if (check.checked) {
+    //                    family = document.getElementById("family[" + (id + i) + "]");
+    //                    fml = family.innerText.toEnglishDigit();
+    //                    fml = parseInt(fml, 10);
+    //                    nAllMembers += fml;
+    //                }
+    //            }
+    //            for (i = 0; i < <?php //getAllActiveMembersCount(); ?>//; i++) {
+    //                check = document.getElementById("donate_check[" + (id + i) + "]");
+    //                if (check.checked) {
+    //                    flag = false;
+    //                    family = document.getElementById("family[" + (id + i) + "]");
+    //                    fml = family.innerText.toEnglishDigit();
+    //                    fml = parseInt(fml, 10);
+    //                    var quotaForEachPerson = sbc * fml / nAllMembers;
+    //                    quotaForEachPerson = parseInt(quotaForEachPerson, 10);
+    //                    nAllBreads = nAllBreads + quotaForEachPerson;
+    //                    input = document.getElementById("donate_count[" + (id + i) + "]");
+    //                    input.value = quotaForEachPerson.toString().toPersianDigit();
+    //                }
+    //            }
+    //            extra = sbc - nAllBreads;
+    //            extra = parseInt(extra, 10);
+    //            if (this.responseText === "") {
+    //                document.getElementById("t_bread").innerText = "۰";
+    //            } else {
+    //                if (flag) {
+    //                    extra = sbc - nAllBreads;
+    //                    extra = parseInt(extra, 10);
+    //                    document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+    //                    document.getElementById("extrai").value = extra.toString().toPersianDigit();
+    //
+    //                } else if (extra !== undefined) {
+    //                    document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+    //                    document.getElementById("extrai").value = extra.toString().toPersianDigit();
+    //                }
+    //            }
+    //        }
+    //    };
+    //    xhttps.open("GET", "showNav.php?q=" + val, true);
+    //    xhttps.send();
+    //}
+
     function fillFields(val) {
         document.getElementById('nav-cus').hidden = document.getElementById('money_custom_donation').value === "";
         document.getElementById('nav-ext').hidden = document.getElementById('money_custom_donation').value === "";
-        val = val.toEnglishDigit();
+        // console.log(val);
+        let sbc;
+        if (val !== "") {
+            val = val.toEnglishDigit();
+            sbc = parseInt(val, 10) / <?php echo getBreadPrice(); ?>;
+            sbc = parseInt(sbc, 10);
+            let rem = val - sbc * <?php echo getBreadPrice(); ?>;
+            document.getElementById("t_bread").innerText = sbc.toString().toPersianDigit();
+            document.getElementById("t_bread").value = sbc.toString().toPersianDigit();
+            document.getElementById("r_money").innerText = rem.toString().toPersianDigit();
+            document.getElementById("r_money").value = rem.toString().toPersianDigit();
+            document.getElementById("rmoney").innerText = rem.toString().toPersianDigit();
+            document.getElementById("rmoney").value = rem.toString().toPersianDigit();
+        } else {
+            sbc = 0;
+        }
 
-        let xhttps;
-        xhttps = new XMLHttpRequest();
-        xhttps.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let id = 5050505050;
-                document.getElementById("t_bread").innerText = this.responseText;
-                let strBread = document.getElementById("t_bread").innerText;
-                // Number of breads we can donate with value entered in the money_custom_donation
-                let sbc = strBread.split(') ')[1];
-                sbc = sbc.toEnglishDigit();
-
-                let check, input, family, extra, flag = true, nAllMembers = 0;
-                let fml = 0, nAllBreads = 0;
-                for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
-                    check = document.getElementById("donate_check[" + (id + i) + "]");
-                    if (check.checked) {
-                        family = document.getElementById("family[" + (id + i) + "]");
-                        fml = family.innerText.toEnglishDigit();
-                        fml = parseInt(fml, 10);
-                        nAllMembers += fml;
-                    }
-                }
-                for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
-                    check = document.getElementById("donate_check[" + (id + i) + "]");
-                    if (check.checked) {
-                        flag = false;
-                        family = document.getElementById("family[" + (id + i) + "]");
-                        fml = family.innerText.toEnglishDigit();
-                        fml = parseInt(fml, 10);
-                        var quotaForEachPerson = sbc * fml / nAllMembers;
-                        quotaForEachPerson = parseInt(quotaForEachPerson, 10);
-                        nAllBreads = nAllBreads + quotaForEachPerson;
-                        input = document.getElementById("donate_count[" + (id + i) + "]");
-                        input.value = quotaForEachPerson.toString().toPersianDigit();
-                    }
-                }
-                extra = sbc - nAllBreads;
-                extra = parseInt(extra, 10);
-                if (this.responseText === "") {
-                    document.getElementById("t_bread").innerText = "۰";
-                } else {
-                    if (flag) {
-                        extra = sbc - nAllBreads;
-                        extra = parseInt(extra, 10);
-                        document.getElementById("extra").innerText = extra.toString().toPersianDigit();
-                        document.getElementById("extrai").value = extra.toString().toPersianDigit();
-
-                    } else if (extra !== undefined) {
-                        document.getElementById("extra").innerText = extra.toString().toPersianDigit();
-                        document.getElementById("extrai").value = extra.toString().toPersianDigit();
-                    }
-                }
+        let id = 5050505050;
+        let check, input, family, extra, flag = true, nAllMembers = 0;
+        let fml = 0, nAllBreads = 0;
+        // count number of people in the system
+        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            if (check.checked) {
+                family = document.getElementById("family[" + (id + i) + "]");
+                fml = family.innerText.toEnglishDigit();
+                fml = parseInt(fml, 10);
+                nAllMembers += fml;
             }
-        };
-        xhttps.open("GET", "showNav.php?q=" + val, true);
-        xhttps.send();
+        }
+
+        for (i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            if (check.checked) {
+                flag = false;
+                family = document.getElementById("family[" + (id + i) + "]");
+                fml = family.innerText.toEnglishDigit();
+                fml = parseInt(fml, 10);
+                var quotaForEachPerson = sbc * fml / nAllMembers;
+                quotaForEachPerson = parseInt(quotaForEachPerson, 10);
+                nAllBreads = nAllBreads + quotaForEachPerson;
+                input = document.getElementById("donate_count[" + (id + i) + "]");
+                input.value = quotaForEachPerson.toString().toPersianDigit();
+            }
+        }
+        extra = sbc - nAllBreads;
+        extra = parseInt(extra, 10);
+
+        if (flag) {
+            extra = sbc - nAllBreads;
+            extra = parseInt(extra, 10);
+            document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extrai").value = extra.toString().toPersianDigit();
+
+            document.getElementById("extrai").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extra").value = extra.toString().toPersianDigit();
+        } else if (extra !== undefined) {
+            document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extrai").value = extra.toString().toPersianDigit();
+
+            document.getElementById("extrai").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extra").value = extra.toString().toPersianDigit();
+        }
     }
 
-    function fillFieldsCount() {
+    function fillFieldsCount(val) {
         document.getElementById("nav-ext").hidden = document.getElementById("amount_custom_donation").value === "";
-        let id = 5050505050;
+        document.getElementById('nav-cus').hidden = document.getElementById('amount_custom_donation').value === "";
+        val = val.toEnglishDigit();
+        document.getElementById("t_bread").innerText = val.toString().toPersianDigit();
+        document.getElementById("t_bread").value = val.toString().toPersianDigit();
 
+        let id = 5050505050;
         let check, input, family, extra, flag = true, nAllMembers = 0;
         let fml = 0, nAllBreads = 0;
         let sbc = document.getElementById("amount_custom_donation").value.toEnglishDigit();
@@ -507,9 +560,15 @@ if (isset($_POST['donatebtn'])) {
             extra = parseInt(extra, 10);
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extrai").value = extra.toString().toPersianDigit();
+
+            document.getElementById("extrai").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extra").value = extra.toString().toPersianDigit();
         } else if (extra !== undefined) {
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extrai").value = extra.toString().toPersianDigit();
+
+            document.getElementById("extrai").innerText = extra.toString().toPersianDigit();
+            document.getElementById("extra").value = extra.toString().toPersianDigit();
         }
     }
 
@@ -517,9 +576,8 @@ if (isset($_POST['donatebtn'])) {
         let id = 5050505050;
         let strBread, sbc;
         if (document.getElementById("mcd").checked) {
-            strBread = document.getElementById("t_bread").innerText;
-            sbc = strBread.split(') ')[1];
-            sbc = sbc.toEnglishDigit();
+            sbc = document.getElementById("t_bread").innerText.toEnglishDigit();
+            sbc = document.getElementById("t_bread").value.toEnglishDigit();
         } else {
             strBread = document.getElementById("amount_custom_donation").value.toEnglishDigit();
             sbc = strBread;
@@ -538,8 +596,10 @@ if (isset($_POST['donatebtn'])) {
             }
         }
         extra = sbc - totalBread;
+        // document.getElementById("extra").value = extra.toString().toPersianDigit();
         document.getElementById("extra").innerText = extra.toString().toPersianDigit();
         document.getElementById("extrai").value = extra.toString().toPersianDigit();
+        // document.getElementById("extrai").innerText = extra.toString().toPersianDigit();
     }
 
     function toggleItems(dc) {
@@ -622,12 +682,30 @@ if (isset($_POST['donatebtn'])) {
         }
     }
 
-    function validateBankUsage() {
+    function validateBankUsage(val) {
         let bank = document.getElementById("bank").value.toEnglishDigit();
         let bankUsage = document.getElementById("bank_usage").value.toEnglishDigit();
         const usage = document.querySelector("#bank_usage");
         bank = parseInt(bank, 10);
         bankUsage = parseInt(bankUsage, 10);
+
+        let tb = document.getElementById("t_bread").value;
+        let rb = document.getElementById("extra").value;
+        console.log(rb);
+        if (val !== "") {
+            val = val.toEnglishDigit();
+            val = parseInt(val, 10);
+        } else {
+            val = 0;
+        }
+        tb = parseInt(tb.toEnglishDigit(), 10) + val;
+        rb = parseInt(rb.toEnglishDigit(), 10) + val;
+        document.getElementById("t_bread").innerText = tb.toString().toPersianDigit();
+        // document.getElementById("t_bread").value = tb.toString().toPersianDigit();
+        document.getElementById("extra").innerText = rb.toString().toPersianDigit();
+        // document.getElementById("extrai").value = rb.toString().toPersianDigit();
+
+
         if (bank < bankUsage) {
             document.getElementById("bank-msg").hidden = false;
             usage.classList.add("border");

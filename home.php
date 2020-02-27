@@ -5,7 +5,7 @@
   <title>سامانه مدیریت سهمیه نان | راه‌اندازی</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
   <script src="JsBarcode.all.min.js"></script>
 </head>
 
@@ -21,7 +21,7 @@
         <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <input class="btn btn-success form-control" type="submit" value="راه‌اندازی دیتابیس"
-                   formaction="createDatabase.php">
+                   formaction="createDatabase">
           </div>
         </form>
       </div>

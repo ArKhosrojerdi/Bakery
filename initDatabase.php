@@ -49,7 +49,7 @@ if (!$initDB) {
         <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <input class="btn btn-success form-control" type="submit" value="شروع"
-                   formaction="index.php">
+                   formaction="index">
           </div>
         </form>
       </div>

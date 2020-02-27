@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit();
 }
 include "entope.php";
@@ -15,7 +15,7 @@ updateBreadPrice();
   <title>سامانه مدیریت سهمیه نان | ویرایش قیمت</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
   <script src="JsBarcode.all.min.js"></script>
 </head>
 <body>
@@ -23,8 +23,8 @@ updateBreadPrice();
   <div class="col-lg-6 col-md-6 col-sm-6 mx-auto mt-5">
     <div class="card card-body">
       <div class="card-body">
-        <a href="edit.php" class="float-left btn btn-outline-dark">برگرد</a>
-        <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
+        <a href="edit" class="float-left btn btn-outline-dark">برگرد</a>
+        <a href="logout" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">صفحه ویرایش</h4>
         <hr>
         <form action="" method="post" enctype="multipart/form-data">

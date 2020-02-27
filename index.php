@@ -14,9 +14,8 @@ buyBread();
   <title>سامانه مدیریت سهمیه نان</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
   <script src="./JsBarcode.all.min.js"></script>
-
 </head>
 
 <body>
@@ -24,16 +23,16 @@ buyBread();
   <div class="col-lg-6 mx-auto mt-5">
     <div class="card card-border card-body">
       <div class="card-body">
-          <?php
-          if (isset($_SESSION['username'])) {
-              echo "<a href='edit.php' class='float-left btn btn-dark'>ویرایش</a>";
-          } else {
-              echo "<a href='login.php' class='float-left btn btn-outline-success ml-1'>ورود</a>";
-          }
-          ?>
+        <?php
+        if (isset($_SESSION['username'])) {
+          echo "<a href='edit' class='float-left btn btn-dark'>ویرایش</a>";
+        } else {
+          echo "<a href='login' class='float-left btn btn-outline-success ml-1'>ورود</a>";
+        }
+        ?>
         <h4 class="card-title mb-4 mt-1 text-right" id="price">
           قیمت نان
-            <?php echo convertNumbers(getBreadPrice(), true); ?>
+          <?php echo convertNumbers(getBreadPrice(), true); ?>
           تومان
         </h4>
         <hr>

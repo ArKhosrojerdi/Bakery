@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit();
 }
 include "entope.php";
@@ -25,7 +25,7 @@ if (isset($_POST['add_member'])) {
     if (!$addMember) {
         die(mysqli_error($connection));
     }
-    header("Location: addMember.php");
+    header("Location: addMember");
 }
 
 ?>
@@ -36,7 +36,7 @@ if (isset($_POST['add_member'])) {
   <title>سامانه مدیریت سهمیه نان | ویرایش قیمت</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
   <script src="JsBarcode.all.min.js"></script>
 </head>
 <body>
@@ -45,42 +45,15 @@ if (isset($_POST['add_member'])) {
   <div class="mt-5">
     <div class="card card-body">
       <div class="card-body">
-        <a href="index.php" class="float-left btn btn-outline-dark">برگرد</a>
-        <a href="editBreadPrice.php" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
-        <a href="edit.php" class="float-left btn btn-outline-dark ml-1">صفحه اهدا</a>
-        <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
+        <a href="index" class="float-left btn btn-outline-dark">برگرد</a>
+        <a href="editBreadPrice" class="float-left btn btn-outline-dark ml-1">قیمت نان</a>
+        <a href="edit" class="float-left btn btn-outline-dark ml-1">صفحه اهدا</a>
+        <a href="logout" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اضافه‌کردن خانوار</h4>
         <hr>
-        <form action="addMember.php" method="post" enctype="multipart/form-data">
 
-          <div class="col" style="direction: rtl">
-            <div class="row text-right">
-              <p class="details col-6"> تعداد کل خانوارها:
-                  <?php getAllMembersCount(); ?>
-              </p>
-              <p class="details col-6"> تعداد کل خانوارهای فعال:
-                  <?php getAllActiveMembersCount(); ?>
-              </p>
-            </div>
-            <div class="row">
-              <p class="details col-6"> تعداد خانوارهای VIP فعال:
-                  <?php getVipActiveMembersCount(); ?>
-              </p>
-              <p class="details col-6">تعداد خانوار‌های VIP (کل):
-                  <?php getAllVipMembersCount(); ?>
-              </p>
-            </div>
-            <div class="row">
-              <p class="details col-6"> تعداد خانوارهای عادی فعال:
-                  <?php getNormalActiveMembersCount(); ?>
-              </p>
-              <p class="details col-6"> تعداد خانوارهای عادی (کل):
-                  <?php getAllNormalMembersCount(); ?>
-              </p>
-            </div>
-          </div>
-
-
+        <?php include "customersStats.php";?>
+        <form action="addMember" method="post" enctype="multipart/form-data">
           <table class="table table-bordered table-striped ">
             <tr>
               <th style="width: 5%;">VIP</th>

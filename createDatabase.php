@@ -46,7 +46,7 @@ exeQuery("CREATE TABLE IF NOT EXISTS donation (cid BIGINT NOT NULL, amount INT (
         <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <input class="btn btn-success form-control" type="submit" name="create-db" value="مقداردهی دیتابیس"
-                   formaction="initDatabase.php">
+                   formaction="initDatabase">
           </div>
         </form>
       </div>
