@@ -40,6 +40,10 @@ input[type=checkbox], input[type=radio] {
   margin: 0 !important;
 }
 
+p {
+  margin: auto;
+}
+
 .navbar {
   background-color: #721c24;
   color: #f7f7f7;

@@ -131,35 +131,52 @@ if (isset($_POST['donatebtn'])) {
         <form action="donate.php" method="post" enctype="multipart/form-data">
           <input type="text" value="" name="extrai" id="extrai" hidden>
 
-          <div class="col" style="direction: rtl">
+          <div class="col" style="direction: rtl;">
             <div class="row text-right">
-              <p class="details col-6"> تعداد کل خانوارها:
+              <p class="details col-6 my-2"> تعداد کل خانوارها:
                   <?php getAllMembersCount(); ?>
               </p>
-              <p class="details col-6"> تعداد کل خانوارهای فعال:
+              <p class="details col-6 my-2"> تعداد کل خانوارهای فعال:
                   <?php getAllActiveMembersCount(); ?>
               </p>
             </div>
             <div class="row">
-              <p class="details col-6"> تعداد خانوارهای VIP فعال:
+              <p class="details col-6 my-2"> تعداد خانوارهای VIP فعال:
                   <?php getVipActiveMembersCount(); ?>
               </p>
-              <p class="details col-6">تعداد خانوار‌های VIP (کل):
+              <p class="details col-6 my-2">تعداد خانوار‌های VIP (کل):
                   <?php getAllVipMembersCount(); ?>
               </p>
             </div>
             <div class="row">
-              <p class="details col-6"> تعداد خانوارهای عادی فعال:
+              <p class="details col-6 my-2"> تعداد خانوارهای عادی فعال:
                   <?php getNormalActiveMembersCount(); ?>
               </p>
-              <p class="details col-6"> تعداد خانوارهای عادی (کل):
+              <p class="details col-6 my-2"> تعداد خانوارهای عادی (کل):
                   <?php getAllNormalMembersCount(); ?>
               </p>
             </div>
           </div>
 
+          <div class="col" style="align-items: center; flex-flow: row nowrap;">
+            <div class="row">
+              <p style="text-align: right; direction: rtl;"
+                 class="col-3 offset-6 my-1">
+                <b style="font-size: 28px">
+                    <?php echo convertNumbers(getBreadPrice(), true); ?>
+                </b>
+                تومان
+              </p>
+              <p class="col-3 my-1" style="align-self: center">
+                <b>
+                  :قیمت نان
+                </b>
+              </p>
+            </div>
+          </div>
 
-          <div class="row" style="direction: rtl;">
+
+          <div class="row" style="direction: rtl; margin: auto; display: flex; align-items: center;">
             <div class="radio col-3">
               <label>وارد کردن مبلغ
                 <input type="radio" name="cdon" id="mcd" onchange="showInputField();" checked>
@@ -171,15 +188,16 @@ if (isset($_POST['donatebtn'])) {
               </label>
             </div>
 
-            <div>
+            <div class="mt-2 mb-3" style="display: flex; align-items: center;">
               <input class="col-12 form-control" id="money_custom_donation" name="money_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="مبلغ را وارد کنید" onkeyup="fillFields(this.value);"
-                     style="width: 100%; text-align: left; direction: ltr" onpaste="return false;">
+                     style="width: 100%; text-align: left; direction: ltr;" onpaste="return false;">
               <input class="col-12 form-control " id="amount_custom_donation" name="amount_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount(this.value);"
-                     style="width: 100%; text-align: left; direction: ltr" onpaste="return false;" hidden>
+                     style="width: 100%; text-align: left; direction: ltr;" onpaste="return false;"
+                     hidden>
               <br>
             </div>
           </div>
@@ -480,18 +498,25 @@ if (isset($_POST['donatebtn'])) {
 
     function changeFieldsOnInput() {
         let id = 5050505050;
-        let strBread = document.getElementById("t_bread").innerText;
+        let strBread, sbc;
+        if (document.getElementById("mcd").checked) {
+            strBread = document.getElementById("t_bread").innerText;
+            sbc = strBread.split(') ')[1];
+            sbc = sbc.toEnglishDigit();
+        } else {
+            strBread = document.getElementById("amount_custom_donation").value.toEnglishDigit();
+            sbc = strBread;
+        }
+        // console.log(strBread);
         // Number of breads we can donate with value entered in the money_custom_donation
-        let sbc = strBread.split(') ')[1];
-        sbc = sbc.toEnglishDigit();
-        console.log(sbc);
+        // console.log(sbc);
 
         let check, extra, input, totalBread = 0;
         for (var i = 0; i < <?php getAllActiveMembersCount();?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 input = document.getElementById("donate_count[" + (id + i) + "]");
-                console.log(input.value);
+                // console.log(input.value);
                 if (input.value !== "") {
                     var inputValue = input.value.toString().toEnglishDigit();
                     inputValue = parseInt(inputValue, 10);
@@ -501,14 +526,15 @@ if (isset($_POST['donatebtn'])) {
         }
         extra = sbc - totalBread;
         document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+        document.getElementById("extrai").value = extra.toString().toPersianDigit();
     }
 
     function toggleItems(dc) {
         var id = dc.substring(13, 23);
-        console.log(id);
+        // console.log(id);
         var donate_count_str = "donate_count[" + id + "]";
         var family = "family[" + id + "]";
-        console.log(family);
+        // console.log(family);
         var status = document.getElementById(donate_count_str).disabled;
         document.getElementById(donate_count_str).value = "۰";
         document.getElementById(donate_count_str).disabled = !status;
