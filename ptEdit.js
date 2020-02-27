@@ -20,6 +20,7 @@ function chInp(idName) {
     });
 }
 
+chInp('#bank_usage');
 chInp('#price');
 chInp('#donation');
 chInp('#money_custom_donation');

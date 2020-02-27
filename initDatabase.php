@@ -4,25 +4,26 @@ $i = 0;
 $code = 5050505050;
 $remaining = 200;
 for (; $i < 150; $i = $i + 1) {
-    if ($i < 50) {
-        $family = rand(4, 7);
-        $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 1)";
-        $initDB = mysqli_query($connection, $query);
-        if (!$initDB) {
-            die(mysqli_error($connection));
-        }
+  if ($i < 50) {
+    $family = rand(4, 7);
+    $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 1)";
+    $initDB = mysqli_query($connection, $query);
+    if (!$initDB) {
+      die(mysqli_error($connection));
     }
+  } else {
     $family = rand(2, 4);
     $query = "INSERT INTO customer (active, family, remaining, total, vip) VALUES (1, '{$family}', 200, 0, 0)";
     $initDB = mysqli_query($connection, $query);
     if (!$initDB) {
-        die(mysqli_error($connection));
+      die(mysqli_error($connection));
     }
+  }
 }
 $query = "INSERT INTO bread (price) VALUE (500)";
 $initDB = mysqli_query($connection, $query);
 if (!$initDB) {
-    die(mysqli_error($connection));
+  die(mysqli_error($connection));
 }
 ?>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@ if (!$initDB) {
   <title>سامانه مدیریت سهمیه نان | راه‌اندازی</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
+  <link href="stylesheets/main.css" rel="stylesheet">
   <script src="JsBarcode.all.min.js"></script>
 </head>
 

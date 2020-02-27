@@ -5,7 +5,7 @@
   url('../Yekan/Yekan.ttf') format('truetype');
 }
 
-html, body {
+body {
   width: 100%;
   height: 100%;
   background-color: #1b1e21;
@@ -40,8 +40,35 @@ input[type=checkbox], input[type=radio] {
   margin: 0 !important;
 }
 
-p {
-  margin: auto;
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+  box-shadow: none;
+}
+
+.r-align {
+  direction: rtl;
+  text-align: right;
+}
+
+.l-align {
+  direction: ltr;
+  text-align: right;
+}
+
+.div-mark {
+  font-size: 28px;
+  transform: skew(-20deg);
+  font-weight: 400;
 }
 
 .navbar {
@@ -82,6 +109,12 @@ p {
 #myBtn:hover {
   background-color: #d03545;
   box-shadow: 2px 2px 4px #1b1e21;
+}
+
+.bank-error {
+  border-radius: 4px;
+  padding: 3px 3px;
+  align-self: center;
 }
 
 .btn.btn-success {

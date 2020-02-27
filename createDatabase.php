@@ -3,12 +3,12 @@ include "migration.php";
 
 function exeQuery($string)
 {
-    global $connection;
-    $query = $string;
-    $exe = mysqli_query($connection, $query);
-    if (!$exe) {
-        die(mysqli_error($connection));
-    }
+  global $connection;
+  $query = $string;
+  $exe = mysqli_query($connection, $query);
+  if (!$exe) {
+    die(mysqli_error($connection));
+  }
 }
 
 exeQuery("CREATE DATABASE IF NOT EXISTS bakery DEFAULT CHARACTER SET UTF8;");
@@ -18,7 +18,7 @@ $query .= "last_name VARCHAR (250), family INT(50) NOT NULL, active INT(1) NOT N
 $query .= "remaining INT(50) NOT NULL, total INT(50) NOT NULL, PRIMARY KEY (id));";
 exeQuery($query);
 exeQuery("ALTER TABLE customer AUTO_INCREMENT = 5050505050;");
-exeQuery("CREATE TABLE IF NOT EXISTS store (money BIGINT NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
+exeQuery("CREATE TABLE IF NOT EXISTS bank (money BIGINT NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
 exeQuery("CREATE TABLE IF NOT EXISTS bread(price INT(50) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
 exeQuery("CREATE TABLE IF NOT EXISTS transaction (cid BIGINT NOT NULL, amount INT(50), price INT(50) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
 exeQuery("CREATE TABLE IF NOT EXISTS donation (cid BIGINT NOT NULL, amount INT (10) NOT NULL, date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");

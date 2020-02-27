@@ -1,73 +1,73 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
+  header("Location: login.php");
+  exit();
 }
 include "entope.php";
 include "functions.php";
 
 if (isset($_POST['donatebtn'])) {
-    $domination_price = $_POST['donation'];
-    $domination_price = convertNumbers($domination_price, false);
-    if ($domination_price !== "") {
-        $query = "INSERT INTO domination (value) VALUE ('{$domination_price}')";
-        $donate = mysqli_query($connection, $query);
-        if (!$donate) {
-            die(mysqli_error($connection));
-        } else {
-            $query = "SELECT count(id) as cid FROM customer WHERE active = '1'";
-            $count_actives = mysqli_query($connection, $query);
-            if (!$count_actives) {
-                die(mysqli_error($connection));
-            } else {
-                if ($row = mysqli_fetch_assoc($count_actives)) {
-                    $c_act = $row['cid'];
-                    $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
-                    $select_price = mysqli_query($connection, $query);
-                    if (!$select_price) {
-                        die(mysqli_error($connection));
-                    } else {
-                        if ($row = mysqli_fetch_assoc($select_price)) {
-                            $breads_donate = $domination_price / ($c_act * $row['price']);
-                            $query = "SELECT * FROM customer WHERE active = '1'";
-                            $select_customers = mysqli_query($connection, $query);
-                            if (!$select_customers) {
-                                die(mysqli_error($connection));
-                            } else {
-                                while ($row1 = mysqli_fetch_assoc($select_customers)) {
-                                    $cus_id = $row1['id'];
-                                    $cus_rem = $row1['remaining'];
-                                    $cus_rem = $cus_rem + $breads_donate;
-                                    $query = "SELECT remaining FROM customer WHERE id = '{$cus_id}'";
-                                    $find_cus = mysqli_query($connection, $query);
-                                    if (!$find_cus) {
-                                        die(mysqli_error($connection));
-                                    } else {
-                                        if ($row_cus = mysqli_fetch_assoc($find_cus)) {
-                                            $cus_rem = $row_cus['remaining'];
-                                            $new_rem = $cus_rem + $breads_donate;
-                                            $query = "UPDATE customer SET remaining = {$new_rem} WHERE id = '{$cus_id}'";
-                                            $upd_rem = mysqli_query($connection, $query);
-                                            if (!$upd_rem) {
-                                                die(mysqli_error($connection));
-                                            }
-                                        }
-                                    }
-                                }
-                                $message = "کمک مالی لحاظ شد و تعداد مناسب به هر خانوار اضافه گردید.";
-                                echo "<script type='text/javascript'>alert('$message');</script>";
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
+  $domination_price = $_POST['donation'];
+  $domination_price = convertNumbers($domination_price, false);
+  if ($domination_price !== "") {
+    $query = "INSERT INTO domination (value) VALUE ('{$domination_price}')";
+    $donate = mysqli_query($connection, $query);
+    if (!$donate) {
+      die(mysqli_error($connection));
     } else {
-        $message = "فیلد مبلغ اهدایی خالی است.";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+      $query = "SELECT count(id) as cid FROM customer WHERE active = '1'";
+      $count_actives = mysqli_query($connection, $query);
+      if (!$count_actives) {
+        die(mysqli_error($connection));
+      } else {
+        if ($row = mysqli_fetch_assoc($count_actives)) {
+          $c_act = $row['cid'];
+          $query = "SELECT price FROM bread ORDER BY date DESC LIMIT 1";
+          $select_price = mysqli_query($connection, $query);
+          if (!$select_price) {
+            die(mysqli_error($connection));
+          } else {
+            if ($row = mysqli_fetch_assoc($select_price)) {
+              $breads_donate = $domination_price / ($c_act * $row['price']);
+              $query = "SELECT * FROM customer WHERE active = '1'";
+              $select_customers = mysqli_query($connection, $query);
+              if (!$select_customers) {
+                die(mysqli_error($connection));
+              } else {
+                while ($row1 = mysqli_fetch_assoc($select_customers)) {
+                  $cus_id = $row1['id'];
+                  $cus_rem = $row1['remaining'];
+                  $cus_rem = $cus_rem + $breads_donate;
+                  $query = "SELECT remaining FROM customer WHERE id = '{$cus_id}'";
+                  $find_cus = mysqli_query($connection, $query);
+                  if (!$find_cus) {
+                    die(mysqli_error($connection));
+                  } else {
+                    if ($row_cus = mysqli_fetch_assoc($find_cus)) {
+                      $cus_rem = $row_cus['remaining'];
+                      $new_rem = $cus_rem + $breads_donate;
+                      $query = "UPDATE customer SET remaining = {$new_rem} WHERE id = '{$cus_id}'";
+                      $upd_rem = mysqli_query($connection, $query);
+                      if (!$upd_rem) {
+                        die(mysqli_error($connection));
+                      }
+                    }
+                  }
+                }
+                $message = "کمک مالی لحاظ شد و تعداد مناسب به هر خانوار اضافه گردید.";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+
+              }
+            }
+          }
+        }
+      }
     }
+  } else {
+    $message = "فیلد مبلغ اهدایی خالی است.";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+  }
 }
 
 ?>
@@ -79,30 +79,7 @@ if (isset($_POST['donatebtn'])) {
   <title>سامانه مدیریت سهمیه نان | ویرایش قیمت</title>
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./stylesheets/stylesheet.css" rel="stylesheet">
-  <script src="JsBarcode.all.min.js"></script>
-  <style>
-    #myBtn {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      z-index: 99;
-      font-size: 18px;
-      border: none;
-      outline: none;
-      background-color: #dc3545;
-      color: #fff;
-      cursor: pointer;
-      padding: 15px 25px;
-      border-radius: 5px 0 0 0;
-    }
-
-    #myBtn:hover {
-      background-color: #d03545;
-      box-shadow: 2px 2px 4px #1b1e21;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
 </head>
 <body>
 
@@ -114,7 +91,7 @@ if (isset($_POST['donatebtn'])) {
 
 <nav id="nav-ext" class="navbar fixed-bottom" hidden>
   <label class="nav nav-item mx-auto">
-    <span id="extra">&nbsp;</span><span style="direction: rtl; text-align: right">باقیمانده: </span>
+    <span id="extra">&nbsp;</span><span class="r-align">باقیمانده: </span>
   </label>
 </nav>
 
@@ -128,80 +105,119 @@ if (isset($_POST['donatebtn'])) {
         <a href="logout.php" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
         <hr>
-        <form action="donate.php" method="post" enctype="multipart/form-data">
-          <input type="text" value="" name="extrai" id="extrai" hidden>
 
+        <div>
           <div class="col" style="direction: rtl;">
             <div class="row text-right">
-              <p class="details col-6 my-2"> تعداد کل خانوارها:
-                  <?php getAllMembersCount(); ?>
+              <p class="details col-lg-6 col-sm-12 my-2"> تعداد کل خانوارها:
+                <?php getAllMembersCount(); ?>
               </p>
-              <p class="details col-6 my-2"> تعداد کل خانوارهای فعال:
-                  <?php getAllActiveMembersCount(); ?>
-              </p>
-            </div>
-            <div class="row">
-              <p class="details col-6 my-2"> تعداد خانوارهای VIP فعال:
-                  <?php getVipActiveMembersCount(); ?>
-              </p>
-              <p class="details col-6 my-2">تعداد خانوار‌های VIP (کل):
-                  <?php getAllVipMembersCount(); ?>
+              <p class="details col-lg-6 col-sm-12 my-2"> تعداد کل خانوارهای فعال:
+                <?php getAllActiveMembersCount(); ?>
               </p>
             </div>
             <div class="row">
-              <p class="details col-6 my-2"> تعداد خانوارهای عادی فعال:
-                  <?php getNormalActiveMembersCount(); ?>
+              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای VIP فعال:
+                <?php getVipActiveMembersCount(); ?>
               </p>
-              <p class="details col-6 my-2"> تعداد خانوارهای عادی (کل):
-                  <?php getAllNormalMembersCount(); ?>
+              <p class="details col-lg-6 col-sm-12 my-2">تعداد خانوار‌های VIP (کل):
+                <?php getAllVipMembersCount(); ?>
+              </p>
+            </div>
+            <div class="row">
+              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای عادی فعال:
+                <?php getNormalActiveMembersCount(); ?>
+              </p>
+              <p class="details col-lg-6 col-sm-12 my-2"> تعداد خانوارهای عادی (کل):
+                <?php getAllNormalMembersCount(); ?>
               </p>
             </div>
           </div>
 
-          <div class="col" style="align-items: center; flex-flow: row nowrap;">
+          <div class="col align-items-center">
             <div class="row">
-              <p style="text-align: right; direction: rtl;"
-                 class="col-3 offset-6 my-1">
+              <p class="col-6 my-1 r-align">
                 <b style="font-size: 28px">
-                    <?php echo convertNumbers(getBreadPrice(), true); ?>
+                  <?php echo convertNumbers(getBreadPrice(), true); ?>
                 </b>
                 تومان
               </p>
-              <p class="col-3 my-1" style="align-self: center">
+              <p class="col-6 my-1 align-self-center">
                 <b>
                   :قیمت نان
                 </b>
               </p>
             </div>
           </div>
+        </div>
+        <form action="donate.php" method="post" enctype="multipart/form-data">
+          <input type="text" value="" name="extrai" id="extrai" hidden>
+          <div class="row my-3 r-align align-items-center d-flex mx-auto">
+            <div class="radio col-lg-3 col-sm-12 l-align align-self-center">
+              <label class="mr-2" for="use-bank">استفاده از انبار</label>
+              <input class="m-auto" type="checkbox" name="use-bank" id="use-bank" onchange="useBank();">
+            </div>
+            <div class="radio col-lg-3 col-sm-12 l-align align-self-center">
+              <label class="mr-2" for="use-bank-all">برداشت کل</label>
+              <input class="m-auto" type="checkbox" name="use-bank-all" id="use-bank-all" onchange="withdrawalAll();"
+                     disabled>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+              <input class="form-control bg-dark text-light border-dark" type="text" name="bank" id="bank"
+                     value="<?php echo convertNumbers(getBreadsInBank(), true); ?>"
+                     disabled>
+            </div>
+            <b class="div-mark">|</b>
+            <div class="col-lg-2 col-sm-6">
+              <input class="form-control" type="text" id="bank_usage" name="bank_usage"
+                     onkeypress="validate(event);" placeholder="...تعداد برداشت از انبار"
+                     onkeyup="validateBankUsage();" onpaste="return false;"
+                     disabled>
+            </div>
+            <div class="col-lg-1 col-sm-12">
+              <small class="border border-danger text-danger bank-error" id="bank-msg" hidden>
+                مقدار نامعتبر!
+              </small>
+            </div>
+          </div>
 
-
-          <div class="row" style="direction: rtl; margin: auto; display: flex; align-items: center;">
-            <div class="radio col-3">
+          <div class="row m-auto d-flex align-items-center" style="direction: rtl;">
+            <div class="radio col-lg-3 col-sm-12">
               <label>وارد کردن مبلغ
                 <input type="radio" name="cdon" id="mcd" onchange="showInputField();" checked>
               </label>
             </div>
-            <div class="radio col-3">
+            <div class="radio col-lg-3 col-sm-12">
               <label>وارد کردن تعداد
                 <input type="radio" name="cdon" id="acd" onchange="showInputField();">
               </label>
             </div>
 
-            <div class="mt-2 mb-3" style="display: flex; align-items: center;">
-              <input class="col-12 form-control" id="money_custom_donation" name="money_custom_donation"
+            <div class="mt-2 mb-3 col d-flex">
+              <input class="col-lg-4 col-sm-4 form-control my-auto" id="money_custom_donation"
+                     name="money_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="مبلغ را وارد کنید" onkeyup="fillFields(this.value);"
-                     style="width: 100%; text-align: left; direction: ltr;" onpaste="return false;">
-              <input class="col-12 form-control " id="amount_custom_donation" name="amount_custom_donation"
+                     onpaste="return false;">
+              <input class="col-lg-4 col-sm-4 form-control my-auto" id="amount_custom_donation" name="amount_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
                      placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount(this.value);"
-                     style="width: 100%; text-align: left; direction: ltr;" onpaste="return false;"
+                     onpaste="return false;"
                      hidden>
               <br>
             </div>
           </div>
 
+          <div class="col">
+            <div class="row r-align">
+              <p class="col-lg-3 col-sm-12 r-align">
+                چک باکس راست: انتخاب همه
+              </p>
+              <p class="col-lg-3 col-sm-12 r-align">
+                چک باکس چپ: انتخاب همه VIPها
+              </p>
+            </div>
+          </div>
 
           <table class="table table-bordered table-striped ">
             <tr>
@@ -219,11 +235,11 @@ if (isset($_POST['donatebtn'])) {
                                                                          onclick="toggleAllChecks();">
               </th>
             </tr>
-              <?php
-              $query = "SELECT * FROM customer";
-              $select_menu_items_vip = mysqli_query($connection, $query);
-              while ($row = mysqli_fetch_assoc($select_menu_items_vip)) {
-              if ($row['vip'] === '1') { ?>
+            <?php
+            $query = "SELECT * FROM customer";
+            $select_menu_items_vip = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($select_menu_items_vip)) {
+            if ($row['vip'] === '1') { ?>
             <tr>
               <td id="vip[<?php echo $row['id']; ?>]"><?php echo "<h5 style='color: #5cb85c'>&#10003;</h5>"; ?></td>
               <td id="family[<?php echo $row['id']; ?>]"><?php echo convertNumbers($row['family'], true); ?></td>
@@ -233,24 +249,24 @@ if (isset($_POST['donatebtn'])) {
               <td><?php echo convertNumbers($row['remaining'], true); ?>
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
-                  echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
+                echo convertNumbers(0, true);
+                ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
                          onpaste="return false;"
                          disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
                                      id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)">
               </td>
-                <?php
-                }
-                }
-                ?>
-                <?php
-                $select_menu_items = mysqli_query($connection, $query); // read from top again
-                while ($row = mysqli_fetch_assoc($select_menu_items)) {
-                if ($row['vip'] === '0') { ?>
+              <?php
+              }
+              }
+              ?>
+              <?php
+              $select_menu_items = mysqli_query($connection, $query); // read from top again
+              while ($row = mysqli_fetch_assoc($select_menu_items)) {
+              if ($row['vip'] === '0') { ?>
             <tr>
-              <td><?php echo "<h5 style='color: red'>&#10008;</h5>"; ?></td>
+              <td><?php echo "<h5 class='text-danger'>&#10008;</h5>"; ?></td>
               <td id="family[<?php echo $row['id']; ?>]"><?php echo convertNumbers($row['family'], true); ?></td>
               <td><?php echo $row['last_name']; ?></td>
               <td><?php echo $row['first_name']; ?></td>
@@ -258,21 +274,22 @@ if (isset($_POST['donatebtn'])) {
               <td><?php echo convertNumbers($row['remaining'], true); ?>
               <td><input class="form-control" type="text" name="donate_count[<?php echo $row['id']; ?>]"
                          id="donate_count[<?php echo $row['id']; ?>]" value="<?php
-                  echo convertNumbers(0, true);
-                  ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
+                echo convertNumbers(0, true);
+                ?>" onkeypress="validate(event);" onkeyup="changeFieldsOnInput();" onclick="this.select();"
                          onpaste="return false;" disabled>
               </td>
               <td colspan="2"><input class="mx-auto" type="checkbox" name="donate_check[<?php echo $row['id']; ?>]"
                                      id="donate_check[<?php echo $row['id']; ?>]" onclick="toggleItems(this.id)"
                 >
               </td>
-                <?php
-                }
-                }
-                ?>
+              <?php
+              }
+              }
+              ?>
           </table>
           <input class="form-control btn btn-primary" type="submit" name="execute-donation" value="ثبت">
         </form>
+
       </div>
     </div>
   </div>
@@ -280,11 +297,14 @@ if (isset($_POST['donatebtn'])) {
 
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="persianTypeEdit.js"></script>
+<script src="ptEdit.js"></script>
+</body>
+</html>
 <script>
     var detailsLength = document.getElementsByClassName("details").length;
-    for (var i = 0; i < detailsLength; i++)
-        document.getElementsByClassName("details").item(i).innerHTML = document.getElementsByClassName("details").item(i).innerHTML.toPersianDigit();
+    var item = document.getElementsByClassName("details");
+    for (let i = 0; i < detailsLength; i++)
+        item.item(i).innerHTML = item.item(i).innerHTML.toPersianDigit();
 
     String.prototype.toEnglishDigit = function () {
         var find = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -361,11 +381,8 @@ if (isset($_POST['donatebtn'])) {
 
         }
 
-        // fillFields(document.getElementById("money_custom_donation").value);
         if (document.getElementById("mcd").checked)
             fillFields(document.getElementById("money_custom_donation").value);
-        // if (document.getElementById("acd").value !== "۰")
-        //     fillFieldsCount();
         if (document.getElementById("acd").checked) {
             fillFieldsCount();
         }
@@ -507,16 +524,12 @@ if (isset($_POST['donatebtn'])) {
             strBread = document.getElementById("amount_custom_donation").value.toEnglishDigit();
             sbc = strBread;
         }
-        // console.log(strBread);
-        // Number of breads we can donate with value entered in the money_custom_donation
-        // console.log(sbc);
 
         let check, extra, input, totalBread = 0;
         for (var i = 0; i < <?php getAllActiveMembersCount();?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 input = document.getElementById("donate_count[" + (id + i) + "]");
-                // console.log(input.value);
                 if (input.value !== "") {
                     var inputValue = input.value.toString().toEnglishDigit();
                     inputValue = parseInt(inputValue, 10);
@@ -531,10 +544,8 @@ if (isset($_POST['donatebtn'])) {
 
     function toggleItems(dc) {
         var id = dc.substring(13, 23);
-        // console.log(id);
         var donate_count_str = "donate_count[" + id + "]";
         var family = "family[" + id + "]";
-        // console.log(family);
         var status = document.getElementById(donate_count_str).disabled;
         document.getElementById(donate_count_str).value = "۰";
         document.getElementById(donate_count_str).disabled = !status;
@@ -584,6 +595,47 @@ if (isset($_POST['donatebtn'])) {
         }
     }
 
+    function useBank() {
+        if (document.getElementById("use-bank").checked) {
+            document.getElementById("bank_usage").disabled = false;
+            document.getElementById("use-bank-all").disabled = false;
+        } else {
+            document.getElementById("bank_usage").disabled = true;
+            document.getElementById("use-bank-all").disabled = true;
+            document.getElementById("use-bank-all").checked = false;
+            document.getElementById("bank_usage").value = "";
+        }
+    }
+
+    function withdrawalAll() {
+        const usage = document.querySelector("#bank_usage");
+        if (document.getElementById("use-bank-all").checked) {
+            document.getElementById("bank_usage").disabled = true;
+            usage.classList.add("bg-success");
+            document.getElementById("bank_usage").style.color = "#fff";
+            document.getElementById("bank_usage").value = document.getElementById("bank").value;
+        } else {
+            document.getElementById("bank_usage").disabled = false;
+            usage.classList.remove("bg-success");
+            document.getElementById("bank_usage").style.color = "#000";
+            document.getElementById("bank_usage").value = "";
+        }
+    }
+
+    function validateBankUsage() {
+        let bank = document.getElementById("bank").value.toEnglishDigit();
+        let bankUsage = document.getElementById("bank_usage").value.toEnglishDigit();
+        const usage = document.querySelector("#bank_usage");
+        bank = parseInt(bank, 10);
+        bankUsage = parseInt(bankUsage, 10);
+        if (bank < bankUsage) {
+            document.getElementById("bank-msg").hidden = false;
+            usage.classList.add("border");
+            usage.classList.add("border-danger");
+        } else {
+            document.getElementById("bank-msg").hidden = true;
+            usage.classList.remove("border-danger");
+            usage.classList.remove("border");
+        }
+    }
 </script>
-</body>
-</html>
