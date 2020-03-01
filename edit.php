@@ -202,7 +202,7 @@ if (isset($_POST['donatebtn'])) {
             </div>
           </div>
 
-          <table class="table table-bordered table-striped ">
+          <table class="table table-bordered table-striped">
             <tr>
               <th style="width: 5%;">VIP</th>
               <th style="width: 5%;">عائله</th>
@@ -360,7 +360,7 @@ if (isset($_POST['donatebtn'])) {
         let id = 5050505050;
         let check, input, family, flag = true, nAllMembers = countAllMembers();
         let fml = 0, nAllBreads = 0, quotaForEachPerson;
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 flag = false;
@@ -381,7 +381,7 @@ if (isset($_POST['donatebtn'])) {
         var counter = 5050505050;
         var status = document.getElementById('select_all_vip').checked;
 
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             var select_all_count = "donate_count[" + (counter + i) + "]";
             var select_vip_check = "donate_check[" + (counter + i) + "]";
             var select_vip = "vip[" + (counter + i) + "]";
@@ -408,7 +408,7 @@ if (isset($_POST['donatebtn'])) {
     function countAllMembers() {
         let id = 5050505050;
         let check, family, nAllMembers = 0, fml = 0;
-        for (let i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (let i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 family = document.getElementById("family[" + (id + i) + "]");
@@ -427,7 +427,7 @@ if (isset($_POST['donatebtn'])) {
         document.getElementById('select_all_vip').checked = status;
         toggleVipChecks();
 
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             var select_all_count = "donate_count[" + (counter + i) + "]";
             var select_all_check = "donate_check[" + (counter + i) + "]";
             var inputs = document.getElementById(select_all_count);
@@ -481,7 +481,7 @@ if (isset($_POST['donatebtn'])) {
         let check, input, family, extra, flag = true, nAllMembers = countAllMembers();
         let fml = 0, nAllBreads = 0, quotaForEachPerson;
 
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 flag = false;
@@ -541,12 +541,9 @@ if (isset($_POST['donatebtn'])) {
 
         let id = 5050505050;
         let check, input, family, extra, flag = true, nAllMembers = countAllMembers();
-        console.log(nAllMembers);
         let fml = 0, nAllBreads = 0, quotaForEachPerson;
-        // console.log(nAllMembers);
-        // let sbc = document.getElementById("a-tbread").value.toEnglishDigit();
         sbc = parseInt(sbc, 10);
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 flag = false;
@@ -595,7 +592,7 @@ if (isset($_POST['donatebtn'])) {
         sbc = document.getElementById("a-tbread").value.toEnglishDigit();
 
         let check, extra, input, totalBread = 0;
-        for (var i = 0; i < <?php getAllActiveMembersCount();?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount();?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
             if (check.checked) {
                 input = document.getElementById("donate_count[" + (id + i) + "]");
@@ -661,7 +658,7 @@ if (isset($_POST['donatebtn'])) {
         document.getElementById("select_all").checked = false;
 
         var counter = 5050505050;
-        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+        for (var i = 0; i < <?php getAllActiveFamiliesCount(); ?>; i++) {
             var select_all_count = "donate_count[" + (counter + i) + "]";
             var select_all_check = "donate_check[" + (counter + i) + "]";
             var inputs = document.getElementById(select_all_count);

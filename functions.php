@@ -102,7 +102,7 @@ function buyBread()
   }
 }
 
-function getAllActiveMembersCount()
+function getAllActiveFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer WHERE active = '1'";
@@ -111,7 +111,7 @@ function getAllActiveMembersCount()
     echo $row['cm'];
 }
 
-function getVipActiveMembersCount()
+function getVipActiveFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer WHERE active = '1' and vip = '1'";
@@ -120,7 +120,7 @@ function getVipActiveMembersCount()
     echo $row['cm'];
 }
 
-function getNormalActiveMembersCount()
+function getNormalActiveFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer WHERE active = '1' and vip = '0'";
@@ -129,7 +129,7 @@ function getNormalActiveMembersCount()
     echo $row['cm'];
 }
 
-function getAllMembersCount()
+function getAllFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer";
@@ -138,7 +138,7 @@ function getAllMembersCount()
     echo $row['cm'];
 }
 
-function getAllVipMembersCount()
+function getAllVipFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer WHERE vip = '1'";
@@ -147,7 +147,7 @@ function getAllVipMembersCount()
     echo $row['cm'];
 }
 
-function getAllNormalMembersCount()
+function getAllNormalFamiliesCount()
 {
   global $connection;
   $query = "SELECT count(distinct id) as cm FROM customer WHERE vip = '0'";
@@ -170,4 +170,55 @@ function getBreadsInBank()
   $bread_in_cash = getBank() / getBreadPrice();
   $bread_in_cash = floor($bread_in_cash);
   return $bread_in_cash;
+}
+
+function getAllActiveMembersCount()
+{
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer WHERE active = '1'";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
+}
+
+function getVipActiveMembersCount()
+{
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer WHERE active = '1' and vip = '1'";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
+}
+
+function getNormalActiveMembersCount()
+{
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer WHERE active = '1' and vip = '0'";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
+}
+
+function getAllMembersCount() {
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
+}
+
+function getAllVipMembersCount() {
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer WHERE vip = 1";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
+}
+
+function getAllNormalMembersCount() {
+  global $connection;
+  $query = "SELECT sum(family) as cm FROM customer WHERE vip = 0";
+  $getAllActiveMembers = mysqli_query($connection, $query);
+  if ($row = mysqli_fetch_assoc($getAllActiveMembers))
+    echo $row['cm'];
 }
