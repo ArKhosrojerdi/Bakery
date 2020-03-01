@@ -95,8 +95,9 @@ if (isset($_POST['add_member'])) {
 <script src="persianTypeAddMembers.js"></script>
 <script>
     var detailsLength = document.getElementsByClassName("details").length;
-    for (var i = 0; i < detailsLength; i++)
-        document.getElementsByClassName("details").item(i).innerHTML = document.getElementsByClassName("details").item(i).innerHTML.toPersianDigit();
+    var item = document.getElementsByClassName("details");
+    for (let i = 0; i < detailsLength; i++)
+        item.item(i).innerHTML = item.item(i).innerHTML.toPersianDigit();
 
     String.prototype.toEnglishDigit = function () {
         var find = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];

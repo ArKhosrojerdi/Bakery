@@ -43,14 +43,14 @@ session_start();
         <hr>
         <form role="form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-group">
           <label>شناسه</label>
-          <input type="text" class="form-control"
-                 name="username"
+          <input type="text" class="form-control" oninput="setCustomValidity('')"
+                 name="username" oninvalid="this.setCustomValidity('شناسه خود را وارد کنید.')"
                  required autofocus>
           <br>
           <label>گذرواژه</label>
-          <input type="password" class="form-control"
-                 name="password" required>
-          <h6><?php echo $msg; ?></h6>
+          <input type="password" class="form-control" oninput="setCustomValidity('')"
+                 name="password" oninvalid="this.setCustomValidity('گذرواژه خود را وارد کنید.')" required>
+          <h6 class="text-danger my-2"><?php echo $msg; ?></h6>
           <button class="btn btn-primary form-control" type="submit"
                   name="login">ورود
           </button>
