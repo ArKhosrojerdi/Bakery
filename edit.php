@@ -113,22 +113,20 @@ if (isset($_POST['donatebtn'])) {
         <a href="logout" class="float-left btn btn-danger ml-1">خروج</a>
         <h4 class="card-title mb-4 mt-1 text-right">اهداییه</h4>
         <hr>
-        <?php include "customersStats.php"; ?>
-        <div class="col align-items-center">
-          <div class="row">
-            <p class="col-6 my-1 r-align">
-              <b style="font-size: 28px">
+        <div class="col align-items-center rounded mb-2">
+          <div class="row r-align mr-auto">
+            <small class="col-2 my-1 r-align text-light bg-danger p-2 rounded">
+              قیمت نان
+              <b class="m-auto" style="font-size: 20px">
                 <?php echo convertNumbers(getBreadPrice(), true); ?>
               </b>
               تومان
-            </p>
-            <p class="col-6 my-1 align-self-center">
-              <b>
-                :قیمت نان
-              </b>
-            </p>
+            </small>
           </div>
         </div>
+
+        <?php include "customersStats.php"; ?>
+
         <form action="donate" method="post" enctype="multipart/form-data">
           <input type="text" value="" name="a-extra" id="a-extra" hidden>
           <input type="text" value="" name="a-rmoney" id="a-rmoney" hidden>
@@ -376,7 +374,6 @@ if (isset($_POST['donatebtn'])) {
         }
     }
 
-
     function toggleVipChecks() {
         var counter = 5050505050;
         var status = document.getElementById('select_all_vip').checked;
@@ -401,8 +398,8 @@ if (isset($_POST['donatebtn'])) {
         //     fillFieldsCount(document.getElementById("amount_custom_donation").value);
         // }
 
-        // console.log("toggleVIP: " + document.getElementById("a-tbread").value);
-        // refreshFields();
+        console.log("toggleVIP: " + document.getElementById("a-tbread").value);
+        refreshFields();
     }
 
     function countAllMembers() {
@@ -443,13 +440,13 @@ if (isset($_POST['donatebtn'])) {
         //     fillFieldsCount(document.getElementById("amount_custom_donation").value);
         // }
 
-        // console.log("toggleAll: " + document.getElementById("a-tbread").value);
-        // refreshFields();
+        console.log("toggleAll: " + document.getElementById("a-tbread").value);
+        refreshFields();
     }
 
     function fillFields() {
         let val = document.getElementById("money_custom_donation").value;
-        let sbc, bankUse;
+        let sbc, bankUse, rem = 0;
         if (val.toEnglishDigit() !== "") {
             if (document.getElementById("bank_usage").value) {
                 bankUse = document.getElementById("bank_usage").value.toString().toEnglishDigit();
@@ -457,6 +454,7 @@ if (isset($_POST['donatebtn'])) {
             } else bankUse = 0;
             sbc = calculateBreadAmount(val.toString().toEnglishDigit());
             sbc += bankUse;
+            rem = parseInt(val.toString().toEnglishDigit(), 10) - sbc * <?php echo getBreadPrice(); ?>;
             console.log("HI");
         } else {
             if (document.getElementById("bank_usage").value) {
@@ -465,16 +463,17 @@ if (isset($_POST['donatebtn'])) {
             } else bankUse = 0;
             sbc = bankUse;
         }
-        console.log("fillFields: " + val);
-        console.log("fillFields[sbc]: " + sbc);
+        // console.log("fillFields: " + val);
+        // console.log("fillFields[sbc]: " + sbc);
+        // console.log("fillFields[rem]: " + rem);
 
         document.getElementById("t_bread").innerText = sbc.toString().toPersianDigit();
         document.getElementById("t_bread").value = sbc.toString().toPersianDigit();
         document.getElementById("a-tbread").value = sbc.toString().toPersianDigit();
 
         // document.getElementById("r_money").innerText = document.getElementById("money_custom_donation").value;
-        // document.getElementById("r_money").value = rem.toString().toPersianDigit();
-        // document.getElementById("a-rmoney").innerText = rem.toString().toPersianDigit();
+        document.getElementById("r_money").innerText = rem.toString().toPersianDigit();
+        document.getElementById("a-rmoney").value = rem.toString().toPersianDigit();
         // document.getElementById("a-rmoney").value = document.getElementById("money_custom_donation").value;
 
         let id = 5050505050;

@@ -99,7 +99,7 @@ input[type=number]:focus,
   font-size: 18px;
   border: none;
   outline: none;
-  background-color: #dc3545;
+  background-color: #721c24;
   color: #fff;
   cursor: pointer;
   padding: 15px 25px;
@@ -107,7 +107,7 @@ input[type=number]:focus,
 }
 
 #myBtn:hover {
-  background-color: #d03545;
+  background-color: #721c24;
   box-shadow: 2px 2px 4px #1b1e21;
 }
 

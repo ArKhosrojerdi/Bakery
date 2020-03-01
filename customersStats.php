@@ -95,10 +95,6 @@
 
 <script>
     function showStats() {
-        if (document.getElementById("show-stats").checked) {
-            document.getElementById("customers-stats").hidden = false;
-        } else {
-            document.getElementById("customers-stats").hidden = true;
-        }
+        document.getElementById("customers-stats").hidden = !document.getElementById("show-stats").checked;
     }
 </script>

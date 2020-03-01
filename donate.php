@@ -5,12 +5,12 @@ include "entope.php";
 if (isset($_POST['execute-donation'])) {
   $count = $_POST["donate_count"];
 //  print_r($_POST["donate_count"]);
-  $extra = convertNumbers($_POST["extrai"], false);
+  $extra = convertNumbers($_POST["a-extra"], false);
   if (isset($_POST["bank_usage"])) {
     $bank = $_POST["bank_usage"];
     $bank = convertNumbers($bank, false);
   }
-  $remaining_money = $_POST['rmoney'];
+//  $remaining_money = $_POST['rmoney'];
 
   if ($_POST["bank_usage"] > getBreadsInBank()) {
     echo "<script type='text/javascript'>" .
@@ -44,7 +44,7 @@ if (isset($_POST['execute-donation'])) {
             $update_remaining_query = mysqli_query($connection, $query);
             if (!$update_remaining_query)
               die(mysqli_error($connection));
-//                    header("Location: edit");
+                    header("Location: edit");
           }
         }
         // Add money to cellar for later donations.
@@ -56,7 +56,7 @@ if (isset($_POST['execute-donation'])) {
             die(mysqli_error($connection));
         }
 
-        echo "<br>" . $remaining_money . "</br>";
+//        echo "<br>" . $remaining_money . "</br>";
         if ($bank != 0) {
           $bank = -1 * $bank * getBreadPrice();
           $query = "INSERT INTO bank (money) VALUE ('{$bank}')";
