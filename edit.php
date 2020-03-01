@@ -155,7 +155,7 @@ if (isset($_POST['donatebtn'])) {
               <input class="col-lg-4 col-sm-4 form-control my-auto" id="amount_custom_donation"
                      name="amount_custom_donation"
                      onkeypress="validate(event);" onclick="this.select();"
-                     placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount(this.value);"
+                     placeholder="تعداد را وارد کنید" onkeyup="fillFieldsCount();"
                      onpaste="return false;"
                      hidden>
               <br>
@@ -336,8 +336,8 @@ if (isset($_POST['donatebtn'])) {
         // }
         // console.log(mcd);
         // var v = document.getElementById("a-tbread").value.toEnglishDigit();
-        var v = document.getElementById("a-tbread").value;
-        console.log("FUCKKKKK: " + v);
+        // var v = document.getElementById("a-tbread").value;
+        // console.log("FUCKKKKK: " + v);
         //v = parseInt(v, 10);
         //v = v * <?php //echo getBreadPrice(); ?>//;
         //// v += mcd;
@@ -348,12 +348,32 @@ if (isset($_POST['donatebtn'])) {
             fillFields();
         }
         if (document.getElementById("acd").checked) {
-            fillFieldsCount(v);
+            fillFieldsCount();
         }
     }
 
     function calculateBreadAmount(money) {
         return parseInt(parseInt(money, 10) / <?php echo getBreadPrice(); ?>, 10);
+    }
+
+    function distributeBread() {
+        let id = 5050505050;
+        let check, input, family, flag = true, nAllMembers = countAllMembers();
+        let fml = 0, nAllBreads = 0, quotaForEachPerson;
+        for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
+            check = document.getElementById("donate_check[" + (id + i) + "]");
+            if (check.checked) {
+                flag = false;
+                family = document.getElementById("family[" + (id + i) + "]");
+                fml = family.innerText.toEnglishDigit();
+                fml = parseInt(fml, 10);
+                quotaForEachPerson = sbc * fml / nAllMembers;
+                quotaForEachPerson = parseInt(quotaForEachPerson, 10);
+                nAllBreads = nAllBreads + quotaForEachPerson;
+                input = document.getElementById("donate_count[" + (id + i) + "]");
+                input.value = quotaForEachPerson.toString().toPersianDigit();
+            }
+        }
     }
 
 
@@ -496,22 +516,35 @@ if (isset($_POST['donatebtn'])) {
         }
     }
 
-    function fillFieldsCount(val) {
+    function fillFieldsCount() {
+        var val = document.getElementById("amount_custom_donation").value;
+        var sbc, bankUse;
         if (val !== "") {
-            document.getElementById("t_bread").innerText = val;
-            document.getElementById("t_bread").value = val;
-            document.getElementById("a-tbread").value = val;
+            if (document.getElementById("bank_usage").value) {
+                bankUse = document.getElementById("bank_usage").value.toString().toEnglishDigit();
+                bankUse = parseInt(bankUse, 10);
+            } else bankUse = 0;
+            val = val.toEnglishDigit();
+            val = parseInt(val, 10);
+            sbc = val + bankUse;
         } else {
-            document.getElementById("t_bread").innerText = "۰";
-            document.getElementById("t_bread").value = "۰";
-            document.getElementById("a-tbread").value = "۰";
+            if (document.getElementById("bank_usage").value) {
+                bankUse = document.getElementById("bank_usage").value.toString().toEnglishDigit();
+                bankUse = parseInt(bankUse, 10);
+            } else bankUse = 0;
+            sbc = bankUse;
         }
+
+        document.getElementById("t_bread").innerText = sbc.toString().toPersianDigit();
+        document.getElementById("t_bread").value = sbc.toString().toPersianDigit();
+        document.getElementById("a-tbread").value = sbc.toString().toPersianDigit();
 
         let id = 5050505050;
         let check, input, family, extra, flag = true, nAllMembers = countAllMembers();
+        console.log(nAllMembers);
         let fml = 0, nAllBreads = 0, quotaForEachPerson;
         // console.log(nAllMembers);
-        let sbc = document.getElementById("a-tbread").value.toEnglishDigit();
+        // let sbc = document.getElementById("a-tbread").value.toEnglishDigit();
         sbc = parseInt(sbc, 10);
         for (var i = 0; i < <?php getAllActiveMembersCount(); ?>; i++) {
             check = document.getElementById("donate_check[" + (id + i) + "]");
