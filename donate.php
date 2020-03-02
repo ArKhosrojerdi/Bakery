@@ -10,7 +10,7 @@ if (isset($_POST['execute-donation'])) {
     $bank = $_POST["bank_usage"];
     $bank = convertNumbers($bank, false);
   }
-//  $remaining_money = $_POST['rmoney'];
+//  $remaining_money = $_POST['a-rmoney'];
 
   if ($_POST["bank_usage"] > getBreadsInBank()) {
     echo "<script type='text/javascript'>" .
@@ -39,7 +39,7 @@ if (isset($_POST['execute-donation'])) {
             $remaining = $row['remaining'];
             $value = convertNumbers($value, false);
             $new_remaining = $remaining + $value;
-            echo $new_remaining . "<br />";
+//            echo $new_remaining . "<br />";
             $query = "UPDATE customer SET remaining = '{$new_remaining}' WHERE id = '{$key}'";
             $update_remaining_query = mysqli_query($connection, $query);
             if (!$update_remaining_query)

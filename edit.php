@@ -103,7 +103,7 @@ if (isset($_POST['donatebtn'])) {
   </label>
 </nav>
 
-<div class="mx-auto" style="width: 95% !important;">
+<div class="mx-auto mb-4" style="width: 95% !important;">
   <div class="mt-5">
     <div class="card card-body">
       <div class="card-body">
@@ -324,34 +324,23 @@ if (isset($_POST['donatebtn'])) {
     }
 
     function refreshFields() {
-        // var mcust = document.getElementById("money_custom_donation").value.toEnglishDigit();
-        // var mcd = 0;
-        // if (mcust !== "") {
-        //     console.log("mcd is not null");
-        //     mcd = parseInt(mcust, 10);
-        // } else {
-        //     mcd = 0;
-        // }
-        // console.log(mcd);
-        // var v = document.getElementById("a-tbread").value.toEnglishDigit();
-        // var v = document.getElementById("a-tbread").value;
-        // console.log("FUCKKKKK: " + v);
-        //v = parseInt(v, 10);
-        //v = v * <?php //echo getBreadPrice(); ?>//;
-        //// v += mcd;
-        //v = v.toString().toPersianDigit();
         if (document.getElementById("mcd").checked) {
-            // console.log("toggleVIP" + document.getElementById("t_bread").value);
-            // console.log("v: " + v);
             fillFields();
-        }
-        if (document.getElementById("acd").checked) {
+        } else if (document.getElementById("acd").checked) {
             fillFieldsCount();
         }
     }
 
     function calculateBreadAmount(money) {
         return parseInt(parseInt(money, 10) / <?php echo getBreadPrice(); ?>, 10);
+    }
+
+    function calculateRemainingMoney() {
+        let rem = document.getElementById("extra").innerText.toString().toEnglishDigit();
+        rem = rem * <?php echo getBreadPrice(); ?>;
+        document.getElementById("r_money").innerText = rem.toPersianDigit();
+        document.getElementById("r_money").value = rem.toPersianDigit();
+        document.getElementById("a-rmoney").value = rem.toPersianDigit();
     }
 
     function distributeBread() {
@@ -392,13 +381,7 @@ if (isset($_POST['donatebtn'])) {
             }
         }
 
-        // if (document.getElementById("mcd").checked)
-        //     fillFields(document.getElementById("money_custom_donation").value);
-        // if (document.getElementById("acd").checked) {
-        //     fillFieldsCount(document.getElementById("amount_custom_donation").value);
-        // }
-
-        console.log("toggleVIP: " + document.getElementById("a-tbread").value);
+        // console.log("toggleVIP: " + document.getElementById("a-tbread").value);
         refreshFields();
     }
 
@@ -434,13 +417,7 @@ if (isset($_POST['donatebtn'])) {
             checks.checked = status;
         }
 
-        // if (document.getElementById("mcd").checked)
-        //     fillFields(document.getElementById("money_custom_donation").value);
-        // if (document.getElementById("acd").checked) {
-        //     fillFieldsCount(document.getElementById("amount_custom_donation").value);
-        // }
-
-        console.log("toggleAll: " + document.getElementById("a-tbread").value);
+        // console.log("toggleAll: " + document.getElementById("a-tbread").value);
         refreshFields();
     }
 
@@ -454,8 +431,7 @@ if (isset($_POST['donatebtn'])) {
             } else bankUse = 0;
             sbc = calculateBreadAmount(val.toString().toEnglishDigit());
             sbc += bankUse;
-            rem = parseInt(val.toString().toEnglishDigit(), 10) - sbc * <?php echo getBreadPrice(); ?>;
-            console.log("HI");
+            //rem = parseInt(val.toString().toEnglishDigit(), 10) - sbc * <?php //echo getBreadPrice(); ?>//;
         } else {
             if (document.getElementById("bank_usage").value) {
                 bankUse = document.getElementById("bank_usage").value.toString().toEnglishDigit();
@@ -463,17 +439,15 @@ if (isset($_POST['donatebtn'])) {
             } else bankUse = 0;
             sbc = bankUse;
         }
-        // console.log("fillFields: " + val);
-        // console.log("fillFields[sbc]: " + sbc);
-        // console.log("fillFields[rem]: " + rem);
 
         document.getElementById("t_bread").innerText = sbc.toString().toPersianDigit();
         document.getElementById("t_bread").value = sbc.toString().toPersianDigit();
         document.getElementById("a-tbread").value = sbc.toString().toPersianDigit();
 
         // document.getElementById("r_money").innerText = document.getElementById("money_custom_donation").value;
-        document.getElementById("r_money").innerText = rem.toString().toPersianDigit();
-        document.getElementById("a-rmoney").value = rem.toString().toPersianDigit();
+        // document.getElementById("r_money").innerText = rem.toString().toPersianDigit();
+        // document.getElementById("r_money").value = rem;
+        // document.getElementById("a-rmoney").value = rem;
         // document.getElementById("a-rmoney").value = document.getElementById("money_custom_donation").value;
 
         let id = 5050505050;
@@ -487,7 +461,6 @@ if (isset($_POST['donatebtn'])) {
                 family = document.getElementById("family[" + (id + i) + "]");
                 fml = family.innerText.toEnglishDigit();
                 fml = parseInt(fml, 10);
-                // console.log(sbc);
                 quotaForEachPerson = sbc * fml / nAllMembers;
                 quotaForEachPerson = parseInt(quotaForEachPerson, 10);
                 nAllBreads = nAllBreads + quotaForEachPerson;
@@ -501,15 +474,17 @@ if (isset($_POST['donatebtn'])) {
         if (flag) {
             extra = sbc - nAllBreads;
             extra = parseInt(extra, 10);
+            //var rmoney = extra * <?php //echo getBreadPrice(); ?>// +document.getElementById("r_money").value;
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            // document.getElementById("r_money").innerText = rmoney.toString().toPersianDigit();
             document.getElementById("a-extra").value = extra.toString().toPersianDigit();
-
             // document.getElementById("a-extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extra").value = extra.toString().toPersianDigit();
         } else if (extra !== undefined) {
+            //var rmoney = extra * <?php //echo getBreadPrice(); ?>// +document.getElementById("r_money").value;
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            // document.getElementById("r_money").innerText = rmoney.toString().toPersianDigit();
             document.getElementById("a-extra").value = extra.toString().toPersianDigit();
-
             // document.getElementById("a-extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extra").value = extra.toString().toPersianDigit();
         }
@@ -562,32 +537,26 @@ if (isset($_POST['donatebtn'])) {
         if (flag) {
             extra = sbc - nAllBreads;
             extra = parseInt(extra, 10);
+            //var rmoney = extra * <?php //echo getBreadPrice(); ?>// +document.getElementById("r_money").value;
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            // document.getElementById("r_money").innerText = rmoney.toString().toPersianDigit();
             document.getElementById("a-extra").value = extra.toString().toPersianDigit();
-
             // document.getElementById("a-extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extra").value = extra.toString().toPersianDigit();
         } else if (extra !== undefined) {
+            //var rmoney = extra * <?php //echo getBreadPrice(); ?>// +document.getElementById("r_money").value;
             document.getElementById("extra").innerText = extra.toString().toPersianDigit();
+            // document.getElementById("r_money").innerText = rmoney.toString().toPersianDigit();
             document.getElementById("a-extra").value = extra.toString().toPersianDigit();
-
             // document.getElementById("a-extra").innerText = extra.toString().toPersianDigit();
             document.getElementById("extra").value = extra.toString().toPersianDigit();
         }
+
     }
 
     function changeFieldsOnInput() {
         let id = 5050505050;
         let strBread, sbc;
-
-        // if (document.getElementById("mcd").checked) {
-        //     sbc = document.getElementById("t_bread").innerText.toEnglishDigit();
-        //     console.log(sbc);
-        //     // sbc = document.getElementById("t_bread").value.toEnglishDigit();
-        // } else {
-        //     strBread = document.getElementById("amount_custom_donation").value.toEnglishDigit();
-        //     sbc = strBread;
-        // }
         sbc = document.getElementById("a-tbread").value.toEnglishDigit();
 
         let check, extra, input, totalBread = 0;
@@ -606,7 +575,6 @@ if (isset($_POST['donatebtn'])) {
         document.getElementById("extra").value = extra.toString().toPersianDigit();
         document.getElementById("extra").innerText = extra.toString().toPersianDigit();
         document.getElementById("a-extra").value = extra.toString().toPersianDigit();
-        // document.getElementById("a-extra").innerText = extra.toString().toPersianDigit();
     }
 
     function toggleItems(dc) {
@@ -616,24 +584,7 @@ if (isset($_POST['donatebtn'])) {
         document.getElementById(donate_count_str).value = "۰";
         document.getElementById(donate_count_str).disabled = !status;
 
-        // changeFieldsOnInput();
-
-        // if (document.getElementById("mcd").checked) {
-        //     fillFields(document.getElementById("money_custom_donation").value);
-        // }
-        // if (document.getElementById("acd").checked) {
-        //     fillFieldsCount(document.getElementById("amount_custom_donation").value);
-        // }
-
-        // if (document.getElementById("mcd").checked) {
-        //     console.log("toggle: " + document.getElementById("t_bread").value);
-        //     fillFields(document.getElementById("t_bread").value);
-        // }
-        // if (document.getElementById("acd").checked) {
-        //     fillFieldsCount(document.getElementById("t_bread").value);
-        // }
-
-        console.log("toggleItem: " + document.getElementById("a-tbread").value);
+        // console.log("toggleItem: " + document.getElementById("a-tbread").value);
         refreshFields();
     }
 
@@ -651,8 +602,6 @@ if (isset($_POST['donatebtn'])) {
             document.getElementById("money_custom_donation").hidden = !mcdStatus;
         }
 
-        // document.getElementById("r_money").value = "۰";
-        // document.getElementById("r_money").innerText = "۰";
         document.getElementById("select_all_vip").checked = false;
         document.getElementById("select_all").checked = false;
 
@@ -736,17 +685,7 @@ if (isset($_POST['donatebtn'])) {
             usage.classList.remove("border");
         }
 
-        // DO  NOT  COPY  THESE  8  LINES
-        // if (document.getElementById("mcd").checked) {
-        //     console.log(document.getElementById("t_bread").innerText);
-        //     fillFields(document.getElementById("t_bread").innerText);
-        // }
-        // if (document.getElementById("acd").checked) {
-        //     fillFieldsCount(document.getElementById("t_bread").innerText);
-        //     console.log("bye");
-        // }
-
-        console.log("bankUse: " + document.getElementById("a-tbread").value);
+        // console.log("bankUse: " + document.getElementById("a-tbread").value);
         refreshFields();
     }
 

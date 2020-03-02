@@ -54,7 +54,7 @@ if (isset($_POST['add_member'])) {
 
         <?php include "customersStats.php";?>
         <form action="addMember" method="post" enctype="multipart/form-data">
-          <table class="table table-bordered table-striped ">
+          <table class="table table-bordered table-striped">
             <tr>
               <th style="width: 5%;">VIP</th>
               <th style="width: 10%;">عائله</th>
@@ -83,7 +83,7 @@ if (isset($_POST['add_member'])) {
                          oninput="setCustomValidity('')"></td>
               <td><input class="mx-auto" type="checkbox" name="active_check" id="active_check" checked></td>
           </table>
-          <input class="form-control btn btn-primary" type="submit" name="add_member" value="اضافه‌کردن">
+          <input class="form-control for btn btn-primary" type="submit" name="add_member" value="افزودن">
         </form>
       </div>
     </div>
